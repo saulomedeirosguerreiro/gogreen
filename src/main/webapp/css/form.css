@@ -1,0 +1,111 @@
+@charset "UTF-8";
+
+
+body {
+	background: linear-gradient(-90deg, #306BE2, #000);
+	height: 100%;
+	display: flex;
+	
+}
+
+textarea {
+	margin: 0 0 10px;
+	border: 0;
+	border-radius: 4px;
+	height: 44px;
+	padding: 0 15px;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+select {
+	margin: 0 0 10px;
+	border: 0;
+	border-radius: 4px;
+	height: 44px;
+	padding: 0 15px;
+
+}
+
+#content {
+	width: 100%;
+	max-width: 315px;
+}
+
+input {
+	background: rgba(0, 0, 0, 0.1);
+	border: 0;
+	border-radius: 4px;
+	height: 44px;
+	padding: 0 15px;
+	color: #fff;
+	margin: 0 0 10px;
+	
+
+}
+
+output{
+	text-align: left;
+	font-family: 'Fredoka One', cursive;
+    color: #FFF;
+    padding: 0 15px;
+      color: #948cad;
+      margin: 0 0 10px;
+}
+
+span {
+	color: #fb6f91;
+	align-self: flex-start;
+	margin: 0 0 10px;
+	font-weight: bold;
+}
+
+button {
+	margin: 5px 0 0;
+	height: 44px;
+	background: #3b9eff;
+	font-weight: bold;
+	color: #ffa500;
+	border: 0;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: bold;
+	transition: background 0.2s;
+}
+
+a {
+	color: #fff;
+	margin-top: 15px;
+	font-size: 16px;
+	opacity: 0.8;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+}
+
+.title {
+	text-transform: uppercase;
+	font-family: 'Fredoka One', cursive;
+	font-size: 28px;
+      padding: 0 15px;
+      color: #FFF;
+      margin: 0 0 10px;
+}
+
+.btn {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: #ffa500;
+  padding: 12px 16px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #FFF;
+}

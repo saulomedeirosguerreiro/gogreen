@@ -1,0 +1,39 @@
+*.class
+*.classpath
+*.settings
+*.project
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+JavaSource/main/resources/properties/database.properties
+bin/JavaSource/main/resources/properties/database.properties
+target/classes/properties/database.properties .settings/org.eclipse.m2e.core.prefs
+
+target/*
+target*
+.idea/*
+
+flexuc.iml
+
+bin/.settings/*
+
+
+/target/*
+bin/JavaSource/main/resources/config/
+bin/WebContent/WEB-INF/pages/pbx/
+bin/WebContent/pages/report/find/call/pbx/occupancy_rate_list.jsp
+bin/WebContent/pages/report/find/call/pbx/occupancy_rate_report.jsp
+bin/WebContent/pages/report/list/national/syntheticDetailedIn.jsp
+bin/WebContent/pages/ura/event/createura_stb.jsp
+bin/WebContent/pages/contact/editarContatoForm.jsp
+JavaSource/main/java/Teste.java
+/target/

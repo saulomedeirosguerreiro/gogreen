@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+@charset "UTF-8";
+
+
+body {
+	background: linear-gradient(-90deg, #306BE2, #000);
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+}
+
+#content {
+	width: 100%;
+	max-width: 330px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+
+}
+
+output{
+	text-align: left;
+	font-family: 'Fredoka One', cursive;
+    color: #FFF;
+    padding: 0 15px;
+      color: #948cad;
+      margin: 0 0 10px;
+}
+
+
+.title {
+	text-transform: uppercase;
+	font-family: 'Fredoka One', cursive;
+	font-size: 28px;
+      padding: 0 15px;
+      color: #FFF;
+      margin: 0 0 10px;
+}
+
+.btn {
+  background-color: DodgerBlue; /* Blue background */
+ 	border: 0;
+	border-radius: 6px;
+  color: #ffa500;
+  padding: 12px 16px; /* Some padding */
+  font-size: 28px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  margin-bottom: 30px;
+  height: 50px;
+  font-weight: bold;
+  text-align: center;
+  height: 80px;
+}
+
+.btn:hover {
+  background-color: #FFF;
+}
