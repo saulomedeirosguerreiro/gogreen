@@ -11,8 +11,8 @@ public class UserService {
 		userDao = new UserDao();
 	}
 	
-	public boolean login(String email, String senha) {
-		return userDao.find(email,senha) != null ?  true : false;
+	public User login(String email, String senha) {
+		return userDao.find(email,senha);
 	}
 	
 	public boolean logout() {

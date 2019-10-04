@@ -13,10 +13,11 @@
 <body>
 	<div id="content">
 		<output class="title">Seja Bem-Vindo, Douglas Linhares</output>
-			<a class="btn" href="/gogreen/presencial.jsp"><i class="fa fa-wrench "></i> Chamado Presencial</a>
-			<a class="btn" href="/gogreen/ponto.jsp"><i class="fa fa-paw"></i>  Bata seu ponto</a>
+			<a class="btn" href="/gogreen/presential.jsp"><i class="fa fa-wrench "></i> Chamado Presencial</a>
+			<a class="btn" href="/gogreen/point.jsp"><i class="fa fa-paw"></i>  Bata seu ponto</a>
 			<a class="btn" href="/gogreen/extra.jsp"><i class="fa fa-plus"></i>  Atividade Extra</a>
-			<a class="btn" href="/gogreen"><i class="fa fa-sign-out"></i>  Sair</a>
+			<a class="btn" href="/gogreen/activity.jsp"><i class="fa fa-database"></i>  Nova Atividade</a>
+			<a class="btn" href="auth?action=logout"><i class="fa fa-sign-out"></i>  Sair</a>
 	</div>
 </body>
 </html>

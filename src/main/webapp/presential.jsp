@@ -14,12 +14,12 @@
 <body>
 	<div id="content">
 	<a href="/gogreen/home.jsp"><i class="fa fa-home"></i>  Tela Inicial > Chamado Presencial</a>
-		<form action="" method="POST">
+		<form action="presential" method="POST">
 		<output class="title">Chamado Presencial</output>
-			<input name="call_number" type="number" placeholder="Número do Chamado" />
-			<input name="client" type="text" placeholder="Nome do Cliente"  />
+			<input name="call_number" type="number" placeholder="Número do Chamado" required/>
+			<input name="client_name" type="text" placeholder="Nome do Cliente"  required/>
 			<output>Data da Atividade</output>
-			<input name="date" type="date"/>
+			<input name="activity_date" type="date" required/>
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>

@@ -11,7 +11,7 @@
 <body>
 		<div id="content">
 		<img src="resources/img/logo.png" alt="GoGreen" />
-			<form action="" method="POST">
+			<form action="user" method="POST">
 				<input name="name" type="text" placeholder="Nome completo" /> <input
 					name="email" type="email" placeholder="Seu e-mail" /> <input
 					name="password" type="password" placeholder="Sua senha secreta" />
