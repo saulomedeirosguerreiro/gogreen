@@ -3,24 +3,45 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Go-green</display-name>
-  <servlet>
-  	<servlet-name>AuthServlet</servlet-name>
-  	<display-name>AuthServlet</display-name>
-  	<description></description>
-  	<servlet-class>br.com.g4flex.servlets.AuthServlet</servlet-class>
-  </servlet>
-   <servlet>
-  	<servlet-name>UserServlet</servlet-name>
-  	<display-name>UserServlet</display-name>
-  	<description></description>
-  	<servlet-class>br.com.g4flex.servlets.UserServlet</servlet-class>
-  </servlet>
- 
-  <welcome-file-list>
-  	<welcome-file>/login.jsp</welcome-file>
-  </welcome-file-list>
-  <session-config>
-   <session-timeout>15</session-timeout>
-</session-config>
+	<display-name>Go-green</display-name>
+	<servlet>
+		<servlet-name>AuthServlet</servlet-name>
+		<display-name>AuthServlet</display-name>
+		<description></description>
+		<servlet-class>br.com.g4flex.servlets.AuthServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserServlet</servlet-name>
+		<display-name>UserServlet</display-name>
+		<description></description>
+		<servlet-class>br.com.g4flex.servlets.UserServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ActivityServlet</servlet-name>
+		<display-name>ActivityServlet</display-name>
+		<description></description>
+		<servlet-class>br.com.g4flex.servlets.ActivityServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ExtraActivityServlet</servlet-name>
+		<display-name>ExtraActivityServlet</display-name>
+		<description></description>
+		<servlet-class>br.com.g4flex.servlets.ExtraActivityServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>PointServlet</servlet-name>
+		<display-name>PointServlet</display-name>
+		<description></description>
+		<servlet-class>br.com.g4flex.servlets.PointServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>PresentialCalledServlet</servlet-name>
+		<display-name>PresentialCalledServlet</display-name>
+		<description></description>
+		<servlet-class>br.com.g4flex.servlets.PresentialCalledServlet</servlet-class>
+	</servlet>
+
+	<welcome-file-list>
+		<welcome-file>/login.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>

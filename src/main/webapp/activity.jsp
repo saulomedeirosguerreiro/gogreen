@@ -23,7 +23,7 @@
 	</div>
 	<table id="customers">
   <tr>
-    <th>Nome da Atividade</th>
+    <th>Atividade</th>
     <th>Valor</th>
 
   </tr>

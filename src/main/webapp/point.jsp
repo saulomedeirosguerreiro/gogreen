@@ -14,14 +14,15 @@
 <body>
 	<div id="content">
 	<a href="/gogreen/home.jsp"><i class="fa fa-home"></i>  Tela Inicial > Bata seu ponto</a>
-		<form action="" method="POST">
+		<form action="point" method="POST">
 		<output class="title">Olá, Bata o seu ponto</output>
 			<select name="day_of_week" >
-				<option value="1">Segunda-feira</option>
-				<option value="2">Terça-feira</option>
-				<option value="3">Quarta-feira</option>
-				<option value="4">Quinta-feira</option>
-				<option value="5">Sexta-feira</option>
+				<option value="">Dia da Semana</option>
+				<option value="Segunda-feira">Segunda-feira</option>
+				<option value="Terça-feira">Terça-feira</option>
+				<option value="Quarta-feira">Quarta-feira</option>
+				<option value="Quinta-feira">Quinta-feira</option>
+				<option value="Sexta-feira">Sexta-feira</option>
 			</select>
 			<textarea name=justification rows="4" cols="50" placeholder="Justificativa"></textarea>
 			<button class="btn" type="submit"><i class="fa fa-paw"></i>  Check-in/Check-out</button>

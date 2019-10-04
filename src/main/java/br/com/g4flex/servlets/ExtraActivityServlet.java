@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.g4flex.DateUtil;
 import br.com.g4flex.entity.Activity;
 import br.com.g4flex.entity.ExtraActivity;
 import br.com.g4flex.entity.PresentialCalled;
@@ -44,28 +45,9 @@ public class ExtraActivityServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		String clientName = request.getParameter("client_name");
 		String protocolNumber = request.getParameter("protocol_number");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
-		Date activityDate = null;
-		try {
-			activityDate = sdf.parse(request.getParameter("activity_date"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		Date initialHour = null;
-		System.out.println(request.getParameter("initial_hour"));
-		try {
-			initialHour = sdfHour.parse(request.getParameter("initial_hour"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		Date finalHour = null;
-		try {
-			finalHour = sdfHour.parse(request.getParameter("final_hour"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
+		Date activityDate = DateUtil.stringToDate(request.getParameter("activity_date"), DateUtil.PATTERN_DATE);
+		Date initialHour = DateUtil.stringToDate(request.getParameter("initial_hour"), DateUtil.PATTERN_HOUR);
+		Date finalHour = DateUtil.stringToDate(request.getParameter("final_hour"), DateUtil.PATTERN_HOUR);
 		
 		init(request, response);
 
