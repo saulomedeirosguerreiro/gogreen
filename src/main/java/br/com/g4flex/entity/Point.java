@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.NamedQuery;
 
-import br.com.g4flex.DateUtil;
+import br.com.g4flex.utils.DateUtil;
 
 @Entity
 @Table(name = "point")
@@ -34,11 +34,11 @@ public class Point {
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	private Date checkInHour;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	private Date CheckOutHour;
-	 @ManyToOne(fetch = FetchType.LAZY)
+	 @ManyToOne(fetch = FetchType.EAGER)
 	 @JoinColumn(name = "fk_user")
 	private User user;
 	
@@ -85,6 +85,11 @@ public class Point {
 	public Date getDate() {
 		return date;
 	}
+	
+	@Transient
+	public String getDateFormatted() {
+		return DateUtil.dateToString(getDate(),DateUtil.PATTERN_SCREEN_DATE);
+	}
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -112,7 +117,7 @@ public class Point {
 		try {
 			seconds = DateUtil.secondBetween(DateUtil.dateToString(getCheckOutHour()), DateUtil.dateToString(getCheckInHour()));
 		}catch(Exception e) {
-			return "--:--:--";
+			return null;
 		}
 		return DateUtil.convert(seconds);
 	}

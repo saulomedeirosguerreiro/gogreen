@@ -1,4 +1,4 @@
-package br.com.g4flex;
+package br.com.g4flex.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +14,7 @@ public class DateUtil {
 
 	public final static String PATTERN_TIMESTAMP = "yyyy-MM-dd HH:mm:ss";
 	public final static String PATTERN_DATE = "yyyy-MM-dd";
+	public final static String PATTERN_SCREEN_DATE = "dd/MM/yyyy";
 	public final static String PATTERN_HOUR = "HH:mm";
 
 	public static int secondBetween(String finalDate, String initialDate) {

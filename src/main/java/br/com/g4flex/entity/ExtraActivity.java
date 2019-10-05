@@ -12,8 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.NamedQuery;
+
+import br.com.g4flex.utils.DateUtil;
 
 @Entity
 @Table(name = "extra_activity")
@@ -37,10 +40,10 @@ public class ExtraActivity {
 	private Date finalHour;
 	@Column(length = 100)
 	private String protocolNumber;
-	 @ManyToOne(fetch = FetchType.LAZY)
+	 @ManyToOne(fetch = FetchType.EAGER)
 	 @JoinColumn(name = "fk_user")
 	private User user;
-	 @ManyToOne(fetch = FetchType.LAZY)
+	 @ManyToOne(fetch = FetchType.EAGER)
 	 @JoinColumn(name = "fk_activity")
 	private Activity activity;
 	
@@ -85,6 +88,11 @@ public class ExtraActivity {
 
 	public Date getActivityDate() {
 		return activityDate;
+	}
+
+	@Transient
+	public String getActivityDateFormatted() {
+		return DateUtil.dateToString(getActivityDate(),DateUtil.PATTERN_SCREEN_DATE);
 	}
 
 	public void setActivityDate(Date activityDate) {

@@ -12,8 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.NamedQuery;
+
+import br.com.g4flex.utils.DateUtil;
 
 @Entity
 @Table(name = "presential_called")
@@ -30,7 +33,7 @@ public class PresentialCalled {
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date activityDate;
-	 @ManyToOne(fetch = FetchType.LAZY)
+	 @ManyToOne(fetch = FetchType.EAGER)
 	 @JoinColumn(name = "fk_user")
 	private User user;
 	
@@ -70,6 +73,11 @@ public class PresentialCalled {
 
 	public Date getActivityDate() {
 		return activityDate;
+	}
+	
+	@Transient
+	public String getActivityDateFormatted() {
+		return DateUtil.dateToString(getActivityDate(),DateUtil.PATTERN_SCREEN_DATE);
 	}
 
 	public void setActivityDate(Date activityDate) {

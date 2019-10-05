@@ -1,6 +1,7 @@
 package br.com.g4flex.servlets;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,61 +12,64 @@ import javax.servlet.http.HttpSession;
 
 import br.com.g4flex.entity.User;
 import br.com.g4flex.service.UserService;
+
 @WebServlet("/auth")
 public class AuthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService;
 	private HttpServletResponse response;
-	private  HttpSession session ;
-	
+	private HttpSession session;
+
 	public AuthServlet() {
-	        super();
-	        userService = new UserService();
-	        
+		super();
+		userService = new UserService();
+
 	}
 
-	public String init(HttpServletRequest request, HttpServletResponse response) {
+	public String init(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		this.response = response;
-		this.session =  request.getSession();
+		this.session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		return request.getParameter("action");
 	}
-	
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String action = init(request,response);
-        
-        switch (action.toLowerCase()) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = init(request, response);
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		switch (action.toLowerCase()) {
 		case "login":
-			login(email,password);
+			login(email, password);
 			break;
 		}
-        
+
 	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	       String action = init(request,response);
-		   switch (action.toLowerCase()) {
-			case "logout":
-				logout();
-				break;
-			}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = init(request, response);
+		switch (action.toLowerCase()) {
+		case "logout":
+			logout();
+			break;
+		}
 	}
-	
+
 	private void login(String email, String password) throws IOException {
 		User user = userService.login(email, password);
-		if(user!=null) {
+		if (user != null) {
 			session.setAttribute("user", user);
 			response.sendRedirect("/gogreen/home.jsp");
-		}
-		else {
+		} else {
 			response.sendRedirect("/gogreen");
 		}
 	}
-	
-	private void logout() throws IOException{
-			session.removeAttribute("user");
-			response.sendRedirect("/gogreen");
+
+	private void logout() throws IOException {
+		session.removeAttribute("user");
+		response.sendRedirect("/gogreen");
 	}
 }

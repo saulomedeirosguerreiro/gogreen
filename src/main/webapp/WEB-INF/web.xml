@@ -4,11 +4,23 @@
 
 <web-app>
 	<display-name>Go-green</display-name>
+	<filter>
+		<filter-name>SessionFilter</filter-name>
+		<display-name>SessionFilter</display-name>
+		<description></description>
+		<filter-class>br.com.g4flex.filters.SessionFilter</filter-class>
+
+	</filter>
+	<filter-mapping>
+		<filter-name>SessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>AuthServlet</servlet-name>
 		<display-name>AuthServlet</display-name>
 		<description></description>
 		<servlet-class>br.com.g4flex.servlets.AuthServlet</servlet-class>
+
 	</servlet>
 	<servlet>
 		<servlet-name>UserServlet</servlet-name>
@@ -41,7 +53,16 @@
 		<servlet-class>br.com.g4flex.servlets.PresentialCalledServlet</servlet-class>
 	</servlet>
 
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+
 	<welcome-file-list>
 		<welcome-file>/login.jsp</welcome-file>
 	</welcome-file-list>
+
+
+
 </web-app>
+
+

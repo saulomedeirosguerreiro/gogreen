@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="br.com.g4flex.entity.User"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +11,13 @@
 <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<%
+	User user = (User)session.getAttribute("user");
+	String title = user != null? "Seja Bem-Vindo, " + user.getName() : "Atenção, Sua sessão expirou !"; 
+%>
 <body>
 	<div id="content">
-		<output class="title">Seja Bem-Vindo, Douglas Linhares</output>
+		<output class="title"><%=title%></output>
 			<a class="btn" href="/gogreen/presential.jsp"><i class="fa fa-wrench "></i> Chamado Presencial</a>
 			<a class="btn" href="/gogreen/point.jsp"><i class="fa fa-paw"></i>  Bata seu ponto</a>
 			<a class="btn" href="/gogreen/extra.jsp"><i class="fa fa-plus"></i>  Atividade Extra</a>

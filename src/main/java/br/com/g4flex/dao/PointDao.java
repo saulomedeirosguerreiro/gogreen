@@ -7,9 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import br.com.g4flex.DateUtil;
 import br.com.g4flex.entity.Point;
 import br.com.g4flex.entity.User;
+import br.com.g4flex.utils.DateUtil;
 
 public class PointDao {
 	public void save(Point point) {
