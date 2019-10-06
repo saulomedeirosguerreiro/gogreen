@@ -20,30 +20,29 @@ import br.com.g4flex.utils.DateUtil;
 
 @Entity
 @Table(name = "point")
-@NamedQuery(name="Point.findAll", query="SELECT p FROM Point p")
+@NamedQuery(name = "Point.findAll", query = "SELECT p FROM Point p")
 public class Point {
-	
-	
+
 	@Id
-    @GeneratedValue
+	@GeneratedValue
 	private Long id;
-	@Column(length=150)
+	@Column(length = 150)
 	private String justification;
 	@Column(length = 20)
 	private String dayOfWeek;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	@Temporal(TemporalType.TIME)
 	private Date checkInHour;
 	@Temporal(TemporalType.TIME)
 	private Date CheckOutHour;
-	 @ManyToOne(fetch = FetchType.EAGER)
-	 @JoinColumn(name = "fk_user")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_user")
 	private User user;
-	
-	public Point() {}
-	
+
+	public Point() {
+	}
 
 	public Point(String justification, String dayOfWeek, User user) {
 		super();
@@ -53,8 +52,6 @@ public class Point {
 		setDayOfWeek(dayOfWeek);
 		this.user = user;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -69,7 +66,7 @@ public class Point {
 	}
 
 	public void setJustification(String justification) {
-		if(justification!=null && !justification.isEmpty())
+		if (justification != null && !justification.isEmpty())
 			this.justification = justification;
 	}
 
@@ -78,17 +75,17 @@ public class Point {
 	}
 
 	public void setDayOfWeek(String dayOfWeek) {
-		if(dayOfWeek!=null && !dayOfWeek.isEmpty())
-		this.dayOfWeek = dayOfWeek;
+		if (dayOfWeek != null && !dayOfWeek.isEmpty())
+			this.dayOfWeek = dayOfWeek;
 	}
 
 	public Date getDate() {
 		return date;
 	}
-	
+
 	@Transient
 	public String getDateFormatted() {
-		return DateUtil.dateToString(getDate(),DateUtil.PATTERN_SCREEN_DATE);
+		return DateUtil.dateToString(getDate(), DateUtil.PATTERN_SCREEN_DATE);
 	}
 
 	public void setDate(Date date) {
@@ -115,8 +112,9 @@ public class Point {
 	public String getWorkedHour() {
 		int seconds;
 		try {
-			seconds = DateUtil.secondBetween(DateUtil.dateToString(getCheckOutHour()), DateUtil.dateToString(getCheckInHour()));
-		}catch(Exception e) {
+			seconds = DateUtil.secondBetween(DateUtil.dateToString(getCheckOutHour()),
+					DateUtil.dateToString(getCheckInHour()));
+		} catch (Exception e) {
 			return null;
 		}
 		return DateUtil.convert(seconds);
@@ -130,8 +128,15 @@ public class Point {
 		this.user = user;
 	}
 
-	
-	
-
+	public Object[] toArray() {
+		String analista = this.getUser() == null ? "N/A" : this.getUser().getName();
+		Object[] array = { this.getDate() == null ? "N/A" : this.getDateFormatted(),
+				this.getDayOfWeek() == null ? "N/A" : this.getDayOfWeek(),
+				this.getCheckInHour() == null ? "N/A" : this.getCheckInHour(),
+				this.getCheckOutHour() == null ? "N/A" : this.getCheckOutHour(),
+				this.getWorkedHour() == null ? "N/A" : this.getWorkedHour(), analista,
+				this.getJustification() == null ? "N/A" : this.getJustification() };
+		return array;
+	}
 
 }

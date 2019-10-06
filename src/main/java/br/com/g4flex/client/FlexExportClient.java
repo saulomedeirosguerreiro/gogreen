@@ -5,15 +5,18 @@ import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletResponse;
 
 public class FlexExportClient {
 
-	private final static String BASE_URL = "http://localhost:3333";
-
+	private final static String BASE_URL = "http://10.8.60.70:3330";
+//	private final static String BASE_URL = "http://localhost:3333";
+	
 	private static HttpURLConnection init(String url) throws IOException {
 		URL requestUrl = new URL(url);
 		HttpURLConnection urlConnection = (HttpURLConnection) requestUrl.openConnection();
@@ -58,15 +61,17 @@ public class FlexExportClient {
 
 	private static void sendData(HttpURLConnection con, String data) throws IOException {
 		DataOutputStream dos = null;
+		OutputStreamWriter osw = null;
 		try {
 			dos = new DataOutputStream(con.getOutputStream());
-			dos.writeBytes(data);
-			dos.flush();
-			dos.close();
+			osw = new OutputStreamWriter(dos, StandardCharsets.UTF_8);
+			osw.write(data);
+			osw.flush();
+			osw.close();
 		} catch (IOException exception) {
 			throw exception;
 		} finally {
-			closeQuietly(dos);
+			closeQuietly(osw);
 		}
 	}
 

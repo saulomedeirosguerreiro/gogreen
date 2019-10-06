@@ -24,7 +24,7 @@ public class UserServlet extends HttpServlet {
 		super();
 		userService = new UserService();
 	}
-	
+
 	public String init(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		this.response = response;
 		this.session = request.getSession();
@@ -32,7 +32,6 @@ public class UserServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		return request.getParameter("action");
 	}
-	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

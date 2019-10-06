@@ -20,18 +20,17 @@ import br.com.g4flex.utils.DateUtil;
 
 @Entity
 @Table(name = "extra_activity")
-@NamedQuery(name="ExtraActivity.findAll", query="SELECT ea FROM ExtraActivity ea")
+@NamedQuery(name = "ExtraActivity.findAll", query = "SELECT ea FROM ExtraActivity ea")
 public class ExtraActivity {
-	
-	
+
 	@Id
-    @GeneratedValue
+	@GeneratedValue
 	private Long id;
-	@Column( nullable=false, length=150)
+	@Column(nullable = false, length = 150)
 	private String description;
-	@Column(length = 100, nullable=false)
+	@Column(length = 100, nullable = false)
 	private String clientName;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date activityDate;
 	@Temporal(TemporalType.TIME)
@@ -40,14 +39,15 @@ public class ExtraActivity {
 	private Date finalHour;
 	@Column(length = 100)
 	private String protocolNumber;
-	 @ManyToOne(fetch = FetchType.EAGER)
-	 @JoinColumn(name = "fk_user")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_user")
 	private User user;
-	 @ManyToOne(fetch = FetchType.EAGER)
-	 @JoinColumn(name = "fk_activity")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_activity")
 	private Activity activity;
-	
-	public ExtraActivity() {}
+
+	public ExtraActivity() {
+	}
 
 	public ExtraActivity(String description, String clientName, Date activityDate, Date initialHour, Date finalHour,
 			String protocolNumber, User user, Activity activity) {
@@ -92,7 +92,7 @@ public class ExtraActivity {
 
 	@Transient
 	public String getActivityDateFormatted() {
-		return DateUtil.dateToString(getActivityDate(),DateUtil.PATTERN_SCREEN_DATE);
+		return DateUtil.dateToString(getActivityDate(), DateUtil.PATTERN_SCREEN_DATE);
 	}
 
 	public void setActivityDate(Date activityDate) {
@@ -138,8 +138,18 @@ public class ExtraActivity {
 	public void setActivity(Activity activity) {
 		this.activity = activity;
 	}
-	
-	
 
+	public Object[] toArray() {
+		String analista = this.getUser() == null ? "N/A" : this.getUser().getName();
+		Object[] array = { this.getProtocolNumber() == null ? "N/A" : this.getProtocolNumber(),
+				this.getActivity() == null ? "N/A" : this.getActivity().getName(), analista,
+				this.getDescription() == null ? "N/A" : this.getDescription(),
+				this.getClientName() == null ? "N/A" : this.getClientName(),
+				this.getActivityDate() == null ? "N/A" : this.getActivityDateFormatted(),
+				this.getInitialHour() == null ? "N/A" : this.getInitialHour(),
+				this.getFinalHour() == null ? "N/A" : this.getFinalHour(),
+				this.getActivity() == null ? "N/A" : this.getActivity().getValue() };
+		return array;
+	}
 
 }

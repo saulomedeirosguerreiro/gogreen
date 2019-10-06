@@ -1,5 +1,6 @@
 package br.com.g4flex.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.g4flex.dao.ActivityDao;
@@ -19,6 +20,15 @@ public class ActivityService {
 	
 	public List<Activity> list() { 
 		return activityDao.list();
+	}
+	
+	public List<Object[]> getArrayOfArrayObject() { 
+		List<Object[]> data = new ArrayList<>();
+		List<Activity> lista = list();
+		for (Activity activity : lista) {
+			data.add(activity.toArray());
+		}
+		return data;
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.g4flex.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.g4flex.dao.PointDao;
@@ -28,6 +29,15 @@ public class PointService {
 
 	public void update(Point point) {
 		pointDao.update(point);
+	}
+	
+	public List<Object[]> getArrayOfArrayObject() { 
+		List<Object[]> data = new ArrayList<>();
+		List<Point> lista = list();
+		for (Point point : lista) {
+			data.add(point.toArray());
+		}
+		return data;
 	}
 
 }

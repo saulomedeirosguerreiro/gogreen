@@ -59,8 +59,8 @@ public class DateUtil {
 		String dateText = fmt.format(date);
 		return dateText;
 	}
-	
+
 	public static String getTodayText() {
-		return DateUtil.dateToString(new Date(),PATTERN_DATE);
+		return DateUtil.dateToString(new Date(), PATTERN_DATE);
 	}
 }

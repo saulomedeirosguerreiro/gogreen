@@ -91,4 +91,12 @@ public class PresentialCalled {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public Object[] toArray() {
+		String analista = this.getUser() == null ? "N/A" : this.getUser().getName();
+		Object [] array = {this.getCallNumber() == null ? "N/A" : this.getCallNumber(),
+				analista, this.getClientName() == null ? "N/A" : this.getClientName(),
+						this.getActivityDate() == null ? "N/A" : this.getActivityDateFormatted()};
+		return array;
+	}
 }

@@ -2,8 +2,6 @@ package br.com.g4flex.servlets;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -15,10 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import br.com.g4flex.entity.Activity;
 import br.com.g4flex.entity.ExtraActivity;
-import br.com.g4flex.entity.PresentialCalled;
 import br.com.g4flex.entity.User;
 import br.com.g4flex.service.ExtraActivityService;
-import br.com.g4flex.service.PresentialCalledService;
 import br.com.g4flex.utils.DateUtil;
 
 @WebServlet("/extra")
@@ -49,7 +45,7 @@ public class ExtraActivityServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		String clientName = request.getParameter("client_name");
 		String protocolNumber = request.getParameter("protocol_number");
-		protocolNumber = protocolNumber.isEmpty() ? null : protocolNumber;  
+		protocolNumber = protocolNumber.isEmpty() ? null : protocolNumber;
 		Date activityDate = DateUtil.stringToDate(request.getParameter("activity_date"), DateUtil.PATTERN_DATE);
 		Date initialHour = DateUtil.stringToDate(request.getParameter("initial_hour"), DateUtil.PATTERN_HOUR);
 		Date finalHour = DateUtil.stringToDate(request.getParameter("final_hour"), DateUtil.PATTERN_HOUR);

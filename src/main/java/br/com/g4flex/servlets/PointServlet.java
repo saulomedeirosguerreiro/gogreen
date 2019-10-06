@@ -42,7 +42,6 @@ public class PointServlet extends HttpServlet {
 		String justification = request.getParameter("justification");
 		String dayOfWeek = request.getParameter("day_of_week");
 
-
 		punchTheClock(justification, dayOfWeek);
 		response.sendRedirect("/gogreen/point.jsp");
 	}

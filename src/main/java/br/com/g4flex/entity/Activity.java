@@ -58,5 +58,10 @@ public class Activity {
 		this.value = value;
 	}
 	
+	public Object[] toArray() {
+		Object [] array = {this.getName() == null ? "N/A" : this.getName(), this.getValue() == null ? "N/A" : this.getValue()};
+		return array;
+	}
+	
     
 }
