@@ -27,7 +27,7 @@ public class SessionFilter implements Filter {
 
 		User user = (User) session.getAttribute("user");
 		String uri = req.getRequestURI().toString();
-		System.out.println(uri);
+		//System.out.println(uri);
 
 		try {
 			if (user==null && !uri.equals("/gogreen/") && !uri.equals("/gogreen/auth") 
