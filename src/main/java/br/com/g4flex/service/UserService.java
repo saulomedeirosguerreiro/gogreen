@@ -20,7 +20,11 @@ public class UserService {
 	}
 	
 	public void create(User user) { 
-		userDao.save(user);
+		try {
+			userDao.save(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
