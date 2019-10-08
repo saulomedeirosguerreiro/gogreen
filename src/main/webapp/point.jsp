@@ -66,7 +66,7 @@ String title = user != null?  user.getName() + ", Bata o seu ponto" : "Atenção
 				<th>Dia da Semana</th>
 				<th>Horário de Entrada</th>
 				<th>Horário de Saída</th>
-				<th>Horas Trabalahadas</th>
+				<th>Horas Trabalhadas</th>
 				<th>Analista</th>
 				<th>Justificativa</th>
 			</tr>

@@ -36,6 +36,10 @@ public class SessionFilter implements Filter {
 				res.sendRedirect("/gogreen");
 				return;
 			}
+			if (user!=null && uri.equals("/gogreen/")) { 
+				res.sendRedirect("/gogreen/home.jsp");
+				return;
+			}
 		} catch (Exception e) {
 			RequestDispatcher rq = req.getRequestDispatcher("/gogreen");
 			rq.forward(req, res);

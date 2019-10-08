@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.g4flex.client.FlexExportClient;
 import br.com.g4flex.service.ActivityService;
+import br.com.g4flex.service.ControlOnDutyService;
 import br.com.g4flex.service.ExtraActivityService;
 import br.com.g4flex.service.PointService;
 import br.com.g4flex.service.PresentialCalledService;
@@ -27,6 +28,7 @@ public class ExportServlet extends HttpServlet {
 	private ExtraActivityService extraActivityService;
 	private PointService pointService;
 	private PresentialCalledService presentialCalledService;
+	private ControlOnDutyService controlOnDutyService;
 
 	public ExportServlet() {
 		super();
@@ -34,6 +36,7 @@ public class ExportServlet extends HttpServlet {
 		extraActivityService = new ExtraActivityService();
 		pointService = new PointService();
 		presentialCalledService = new PresentialCalledService();
+		controlOnDutyService = new ControlOnDutyService();
 	}
 
 	public String init(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
@@ -59,12 +62,16 @@ public class ExportServlet extends HttpServlet {
 					"Data da Atividade", "Hora de Início", "Hora de Finalização", "Valor" };
 			json = JsonUtil.getJson(header, extraActivityService.getArrayOfArrayObject(), "Atividade Extra");
 		} else if (model.equals("point")) {
-			String[] header = { "Data", "Dia da Semana", "Horário de Entrada", "Horário de Saída", "Horas Trabalahadas",
+			String[] header = { "Data", "Dia da Semana", "Horário de Entrada", "Horário de Saída", "Horas Trabalhadas",
 					"Analista", "Justificativa" };
 			json = JsonUtil.getJson(header, pointService.getArrayOfArrayObject(), "Ponto");
 		} else if (model.equals("activity")) {
 			String[] header = { "Atividade", "Valor" };
 			json = JsonUtil.getJson(header, activityService.getArrayOfArrayObject(), "Atividade");
+		} else if (model.equals("control")) {
+			String[] header = { "Data", "Dia da Semana", "Número do Chamado", "Hora de Início", "Hora de Finalização",
+					"Horas Trabalhadas", "Analista", "Cliente", "Justificativa" };
+			json = JsonUtil.getJson(header, controlOnDutyService.getArrayOfArrayObject(), "Controle do Plantão");
 		}
 
 		try {

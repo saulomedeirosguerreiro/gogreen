@@ -2,32 +2,22 @@
 
 @charset "UTF-8";
 
-
 body {
 	background: linear-gradient(-90deg, #306BE2, #000);
 	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	
 }
 
-#content {
-	width: 100%;
-	max-width: 330px;
-	display: flex;
-	flex-direction: column;
-	margin-top: 30px;
-
+.grid-container {
+	display: grid;
+	grid-column-gap: 15px;
+	grid-template-columns: auto auto ;
+	background-color: linear-gradient(-90deg, #306BE2, #000);
+	padding: 10px;
 }
 
-output{
-	text-align: left;
-	font-family: 'Fredoka One', cursive;
-    color: #FFF;
-    padding: 0 15px;
-      color: #948cad;
-      margin: 0 0 10px;
+.grid-item {
+	background-color: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgba(0, 0, 0, 0.8);
 }
 
 
@@ -35,26 +25,25 @@ output{
 	text-transform: uppercase;
 	font-family: 'Fredoka One', cursive;
 	font-size: 28px;
-      padding: 0 15px;
-      color: #FFF;
-      margin: 0 0 10px;
+	padding: 0 15px;
+	color: #FFF;
 }
 
 .btn {
-  background-color: DodgerBlue; /* Blue background */
- 	border: 0;
+	background-color: rgba(0, 0, 0, 0.1);
+	border: 0; 
 	border-radius: 6px;
-  color: #ffa500;
-  padding: 12px 16px; /* Some padding */
-  font-size: 28px; /* Set a font size */
-  cursor: pointer; /* Mouse pointer on hover */
-  margin-bottom: 30px;
-  height: 50px;
-  font-weight: bold;
-  text-align: center;
-  height: 80px;
+	color: #ffa500;
+	padding: 12px 16px; /* Some padding */
+	font-size: 28px; /* Set a font size */
+	cursor: pointer; /* Mouse pointer on hover */
+	margin-bottom: 30px;
+	height: 100%;
+	font-weight: bold;
+	text-align: left;
+	height: 80px;
 }
 
 .btn:hover {
-  background-color: #FFF;
+	background-color: #FFF;
 }
