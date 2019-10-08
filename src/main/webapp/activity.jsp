@@ -25,9 +25,9 @@
 			Inicial > Nova Atividade</a>
 		<form action="activity" method="POST">
 			<output class="title">Nova Atividade</output>
-			<input name="name" type="text" placeholder="Nome da Atividade"
+			<input name="name" type="text" placeholder="Nome da Atividade" maxlength="100"
 				required /> <input name="value" type="number"
-				placeholder="Valor da Atividade" required />
+				placeholder="Valor da Atividade" min="0" max="20000" required />
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>

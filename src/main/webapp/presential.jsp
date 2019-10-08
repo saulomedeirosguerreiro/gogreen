@@ -35,8 +35,8 @@ String title = user != null?  "Chamado Presencial" : "Atenção, Sua sessão exp
 		<form action="presential" method="POST">
 			<output class="title"><%=title%></output>
 			<input name="call_number" type="number"
-				placeholder="Número do Chamado" required /> <input
-				name="client_name" type="text" placeholder="Nome do Cliente"
+				placeholder="Número do Chamado" maxlength="100" required /> <input
+				name="client_name" type="text" placeholder="Nome do Cliente" maxlength="100"
 				required />
 			<output>Data da Atividade</output>
 			<input name="activity_date" type="date" required />

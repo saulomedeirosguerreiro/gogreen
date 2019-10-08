@@ -13,9 +13,9 @@
 		<div id="content">
 		<img src="resources/img/logo.png" alt="GoGreen" />
 			<form action="user" method="POST">
-				<input name="name" type="text" placeholder="Nome completo" /> <input
-					name="email" type="email" placeholder="Seu e-mail" /> <input
-					name="password" type="password" placeholder="Sua senha secreta" />
+				<input name="name" type="text" placeholder="Nome completo" maxlength="100" required/> <input
+					name="email" type="email" placeholder="Seu e-mail" maxlength="150" required/> <input
+					name="password" type="password" placeholder="Sua senha secreta" maxlength="100" required />
 				<button type="submit">Criar Conta</button>
 				<a href="/gogreen">Já tenho login</a>
 			</Form>

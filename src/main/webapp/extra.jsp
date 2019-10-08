@@ -45,16 +45,16 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 
 			</select> 
 			<textarea name="description" rows="4" cols="50"
-				placeholder="Descrição" required></textarea>
+				placeholder="Descrição" maxlength="150" required></textarea>
 			<output>Data da Atividade</output>
 			<input name="activity_date" type="date" required />
 			<output>Hora de Início</output>
 			plus <input name="initial_hour" type="time" required />
 			<output>Hora de Finalização</output>
 			<input name="final_hour" type="time" required /> <input
-				name="client_name" type="text" placeholder="Nome do Cliente"
+				name="client_name" type="text" placeholder="Nome do Cliente" maxlength="100"
 				required /> <input name="protocol_number" type="number"
-				placeholder="Número do Protocolo" />
+				placeholder="Número do Protocolo" maxlength="100" />
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>

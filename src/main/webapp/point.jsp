@@ -38,7 +38,7 @@ String title = user != null?  user.getName() + ", Bata o seu ponto" : "Atenção
 				<option value="Sexta-feira">Sexta-feira</option>
 			</select>
 			<textarea name=justification rows="4" cols="50"
-				placeholder="Justificativa"></textarea>
+				placeholder="Justificativa" maxlength="150"></textarea>
 			<button class="btn" type="submit">
 				<i class="fa fa-paw"></i> Check-in/Check-out
 			</button>

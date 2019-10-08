@@ -38,16 +38,16 @@ String title = user != null?  "Controle do Plantão" : "Atenção, Sua sessão e
 				<option value="Sexta-feira">Sexta-feira</option>
 			</select>
 			<textarea name="justification" rows="4" cols="50"
-				placeholder="Justificativa"></textarea>
+				placeholder="Justificativa" maxlength="150"></textarea>
 			<output>Data</output>
 			<input name="date" type="date" required />
 			<output>Hora de Início</output>
 			plus <input name="initial_hour" type="time" required />
 			<output>Hora de Finalização</output>
 			<input name="final_hour" type="time" required /> <input
-				name="client_name" type="text" placeholder="Nome do Cliente"
+				name="client_name" type="text" placeholder="Nome do Cliente" maxlength="100"
 				required /> <input name="call_number" type="number"
-				placeholder="Número do Chamado" required/>
+				placeholder="Número do Chamado" maxlength="100" required/>
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>

@@ -13,8 +13,8 @@
 		<div id="content">
 		<img src="resources/img/logo.png" alt="GoGreen" />
 			<form action="auth?action=login" method="POST">
-				<input name="email" type="email" placeholder="Seu e-mail" required/> 
-				<input name="password" type="password" placeholder="Sua senha secreta" required />
+				<input name="email" type="email" placeholder="Seu e-mail" maxlength="150" required/> 
+				<input name="password" type="password" placeholder="Sua senha secreta" maxlength="100" required />
 				<button type="submit">Acessar</button>
 				<a href="/gogreen/register.jsp">Criar conta</a>
 			</Form>

@@ -18,7 +18,7 @@ public class Activity {
 	private Long id;
 	@Column( nullable=false, length=100)
 	private String name;
-	@Column(unique=true, length = 150, nullable=false)
+	@Column(unique=true, nullable=false)
 	private Double value;
 	
 	public Activity() {}
