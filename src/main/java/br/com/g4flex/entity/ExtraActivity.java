@@ -39,6 +39,8 @@ public class ExtraActivity {
 	private Date finalHour;
 	@Column(length = 100)
 	private String protocolNumber;
+	@Column
+	private Double repayment;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_user")
 	private User user;
@@ -49,8 +51,9 @@ public class ExtraActivity {
 	public ExtraActivity() {
 	}
 
+
 	public ExtraActivity(String description, String clientName, Date activityDate, Date initialHour, Date finalHour,
-			String protocolNumber, User user, Activity activity) {
+			String protocolNumber, Double repayment, User user, Activity activity) {
 		super();
 		this.description = description;
 		this.clientName = clientName;
@@ -58,6 +61,7 @@ public class ExtraActivity {
 		this.initialHour = initialHour;
 		this.finalHour = finalHour;
 		this.protocolNumber = protocolNumber;
+		this.repayment = repayment;
 		this.user = user;
 		this.activity = activity;
 	}
@@ -139,6 +143,14 @@ public class ExtraActivity {
 		this.activity = activity;
 	}
 
+	public Double getRepayment() {
+		return repayment;
+	}
+
+	public void setRepayment(Double repayment) {
+		this.repayment = repayment;
+	}
+
 	public Object[] toArray() {
 		String analista = this.getUser() == null ? "N/A" : this.getUser().getName();
 		Object[] array = { this.getProtocolNumber() == null ? "N/A" : this.getProtocolNumber(),
@@ -147,8 +159,8 @@ public class ExtraActivity {
 				this.getClientName() == null ? "N/A" : this.getClientName(),
 				this.getActivityDate() == null ? "N/A" : this.getActivityDateFormatted(),
 				this.getInitialHour() == null ? "N/A" : this.getInitialHour(),
-				this.getFinalHour() == null ? "N/A" : this.getFinalHour(),
-				this.getActivity() == null ? "N/A" : this.getActivity().getValue() };
+				this.getFinalHour() == null ? "N/A" : this.getFinalHour(), 
+				this.getActivity() == null ? "N/A": this.getRepayment() == null ? this.getActivity().getValue() : this.getRepayment() };
 		return array;
 	}
 

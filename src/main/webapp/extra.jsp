@@ -20,6 +20,21 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript">
+function changeVisibilyRepaymentInput() {
+	let activitySelectElement = document.getElementById('activity');
+	let activitySelectedValue = "" + activitySelectElement.options[activitySelectElement.selectedIndex].innerHTML;
+	if (activitySelectedValue.toUpperCase() === 'REEMBOLSO' || activitySelectedValue.toUpperCase() === 'RESSARCIMENTO') {
+        document.getElementById('repayment').style.visibility = 'visible';
+    } else {
+        document.getElementById('repayment').style.visibility = 'hidden';
+    }
+}
+
+window.onload = function() {
+	changeVisibilyRepaymentInput();
+}
+</script>
 </head>
 <%	
 User user = (User)session.getAttribute("user"); 
@@ -31,7 +46,7 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 			Inicial > Atividade Extra</a>
 		<form action="extra" method="POST">
 			<output class="title"><%=title%></output>
-			<select name="activity" required>
+			<select name="activity" id="activity" onclick="changeVisibilyRepaymentInput()" required>
 				<%
 					ActivityService activityService = new ActivityService();
 					List<Activity> activityList = activityService.list();
@@ -44,6 +59,8 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 				%>
 
 			</select> 
+			<input name="repayment" id="repayment" type="number"
+				placeholder="Valor do Ressarcimento" min="0" max="20000"  />
 			<textarea name="description" rows="4" cols="50"
 				placeholder="Descrição" maxlength="150" required></textarea>
 			<output>Data da Atividade</output>
@@ -52,9 +69,9 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 			plus <input name="initial_hour" type="time" required />
 			<output>Hora de Finalização</output>
 			<input name="final_hour" type="time" required /> <input
-				name="client_name" type="text" placeholder="Nome do Cliente" maxlength="100"
-				required /> <input name="protocol_number" type="number"
-				placeholder="Número do Protocolo" maxlength="100" />
+				name="client_name" type="text" placeholder="Nome do Cliente"
+				maxlength="100" required /> <input name="protocol_number"
+				type="number" placeholder="Número do Protocolo" maxlength="100" />
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>
@@ -91,7 +108,7 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 				<td><%=extraActivity.getActivityDate() == null ? "N/A" : extraActivity.getActivityDateFormatted()%></td>
 				<td><%=extraActivity.getInitialHour() == null ? "N/A" : extraActivity.getInitialHour()%></td>
 				<td><%=extraActivity.getFinalHour() == null ? "N/A" : extraActivity.getFinalHour()%></td>
-				<td><%=extraActivity.getActivity() == null ? "N/A" : extraActivity.getActivity().getValue()%></td>
+				<td><%=extraActivity.getActivity() == null ? "N/A" : extraActivity.getRepayment() == null ? extraActivity.getActivity().getValue() : extraActivity.getRepayment()%></td>
 			</tr>
 			<%
 				}
@@ -99,13 +116,12 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 		</tbody>
 	</table>
 
-	<a id="pdf"
-		href="export?action=pdf&model=extra">
-		<img src="resources/img/File_pdf.png">
+	<a id="pdf" href="export?action=pdf&model=extra"> <img
+		src="resources/img/File_pdf.png">
 	</a>
 
-	<a id="xls" href="export?action=excel&model=extra">
-		<img src="resources/img/File_xls.png">
+	<a id="xls" href="export?action=excel&model=extra"> <img
+		src="resources/img/File_xls.png">
 	</a>
 </body>
 </html>

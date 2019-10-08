@@ -46,17 +46,18 @@ public class ExtraActivityServlet extends HttpServlet {
 		String clientName = request.getParameter("client_name");
 		String protocolNumber = request.getParameter("protocol_number");
 		protocolNumber = protocolNumber.isEmpty() ? null : protocolNumber;
+		Double repayment = request.getParameter("repayment").isEmpty() ? null : Double.parseDouble(request.getParameter("repayment"));;
 		Date activityDate = DateUtil.stringToDate(request.getParameter("activity_date"), DateUtil.PATTERN_DATE);
 		Date initialHour = DateUtil.stringToDate(request.getParameter("initial_hour"), DateUtil.PATTERN_HOUR);
 		Date finalHour = DateUtil.stringToDate(request.getParameter("final_hour"), DateUtil.PATTERN_HOUR);
-		createNewExtraActivity(description, clientName, activityDate, initialHour, finalHour, protocolNumber, activity);
+		createNewExtraActivity(description, clientName, activityDate, initialHour, finalHour, protocolNumber,repayment, activity);
 		response.sendRedirect("/gogreen/extra.jsp");
 	}
 
 	private void createNewExtraActivity(String description, String clientName, Date activityDate, Date initialHour,
-			Date finalHour, String protocolNumber, Activity activity) {
+			Date finalHour, String protocolNumber, Double repayment, Activity activity) {
 		User user = (User) session.getAttribute("user");
 		extraActivityService.create(new ExtraActivity(description, clientName, activityDate, initialHour, finalHour,
-				protocolNumber, user, activity));
+				protocolNumber, repayment, user, activity));
 	}
 }
