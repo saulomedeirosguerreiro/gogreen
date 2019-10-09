@@ -60,7 +60,7 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 
 			</select> 
 			<input name="repayment" id="repayment" type="number"
-				placeholder="Valor do Ressarcimento" min="0" max="20000"  />
+				placeholder="Valor do Ressarcimento" min="0" max="20000" step="0.01"  />
 			<textarea name="description" rows="4" cols="50"
 				placeholder="Descrição" maxlength="150" required></textarea>
 			<output>Data da Atividade</output>
