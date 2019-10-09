@@ -45,9 +45,9 @@ String title = user != null?  "Controle do Plantão" : "Atenção, Sua sessão e
 			plus <input name="initial_hour" type="time" required />
 			<output>Hora de Finalização</output>
 			<input name="final_hour" type="time" required /> <input
-				name="client_name" type="text" placeholder="Nome do Cliente" maxlength="100"
-				required /> <input name="call_number" type="number"
-				placeholder="Número do Chamado" maxlength="100" required/>
+				name="client_name" type="text" placeholder="Nome do Cliente"
+				maxlength="100" required /> <input name="call_number" type="number"
+				placeholder="Número do Chamado" maxlength="100" required />
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>
@@ -99,5 +99,23 @@ String title = user != null?  "Controle do Plantão" : "Atenção, Sua sessão e
 	<a id="xls" href="export?action=excel&model=control"> <img
 		src="resources/img/File_xls.png">
 	</a>
+
+	<script type="text/javascript">
+		function changeVisibilyExports() {
+			if(<%=controlOnDutyList.isEmpty()%>){
+				console.log("lista vazia")
+				  document.getElementById('pdf').style.visibility = 'hidden';
+				  document.getElementById('xls').style.visibility = 'hidden';
+			}else{
+				console.log("lista cheia")
+				 document.getElementById('pdf').style.visibility = 'visible';
+				 document.getElementById('xls').style.visibility = 'visible';
+			}
+		}
+		
+		window.onload = function() {
+			changeVisibilyExports();
+		}
+     </script>
 </body>
 </html>

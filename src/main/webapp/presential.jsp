@@ -82,5 +82,23 @@ String title = user != null?  "Chamado Presencial" : "Atenção, Sua sessão exp
 	<a id="xls" href="export?action=excel&model=presential">
 		<img src="resources/img/File_xls.png">
 	</a>
+	
+		<script type="text/javascript">
+		function changeVisibilyExports() {
+			if(<%=presentialCalledList.isEmpty()%>){
+				console.log("lista vazia")
+				  document.getElementById('pdf').style.visibility = 'hidden';
+				  document.getElementById('xls').style.visibility = 'hidden';
+			}else{
+				console.log("lista cheia")
+				 document.getElementById('pdf').style.visibility = 'visible';
+				 document.getElementById('xls').style.visibility = 'visible';
+			}
+		}
+		
+		window.onload = function() {
+			changeVisibilyExports();
+		}
+     </script>
 </body>
 </html>

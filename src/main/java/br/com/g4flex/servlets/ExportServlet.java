@@ -81,7 +81,8 @@ public class ExportServlet extends HttpServlet {
 				FlexExportClient.excel(response, json, model + ".xlsx");
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("/gogreen/" + model + ".jsp");
+			if(!response.isCommitted())
+				response.sendRedirect("/gogreen/" + model + ".jsp");
 		}
 
 	}

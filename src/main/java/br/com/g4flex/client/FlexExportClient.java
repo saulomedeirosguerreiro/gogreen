@@ -1,6 +1,5 @@
 package br.com.g4flex.client;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.DataOutputStream;
@@ -30,14 +29,14 @@ public class FlexExportClient {
 		return urlConnection;
 	}
 
-	public static void pdf(HttpServletResponse response, String json, String filename) throws IOException {
+	public static void pdf(HttpServletResponse response, String json, String filename) throws Exception {
 		HttpURLConnection myUrlConnection = init(BASE_URL + "/exports/pdf");
 
 		sendData(myUrlConnection, json);
 		receiveData(myUrlConnection, response, "application/pdf; charset=utf-8", filename);
 	}
 
-	public static void excel(HttpServletResponse response, String json, String filename) throws IOException {
+	public static void excel(HttpServletResponse response, String json, String filename) throws Exception {
 		HttpURLConnection myUrlConnection = init(BASE_URL + "/exports/excel");
 
 		sendData(myUrlConnection, json);
@@ -45,7 +44,7 @@ public class FlexExportClient {
 	}
 
 	private static void receiveData(HttpURLConnection con, HttpServletResponse response, String contentType,
-			String filename) throws IOException {
+			String filename) throws Exception {
 		ServletOutputStream servletOutputStream = null;
 		try {
 			servletOutputStream = response.getOutputStream();
@@ -70,15 +69,15 @@ public class FlexExportClient {
 			servletOutputStream.write(bytes, 0, bytes.length);
 			servletOutputStream.flush();
 			servletOutputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			throw exception;
 		} finally {
 			closeQuietly(servletOutputStream);
 		}
 
 	}
 
-	private static void sendData(HttpURLConnection con, String data) throws IOException {
+	private static void sendData(HttpURLConnection con, String data) throws Exception {
 		DataOutputStream dos = null;
 		OutputStreamWriter osw = null;
 		try {
@@ -87,7 +86,7 @@ public class FlexExportClient {
 			osw.write(data);
 			osw.flush();
 			osw.close();
-		} catch (IOException exception) {
+		} catch (Exception exception) {
 			throw exception;
 		} finally {
 			closeQuietly(osw);

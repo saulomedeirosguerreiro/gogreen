@@ -123,5 +123,21 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 	<a id="xls" href="export?action=excel&model=extra"> <img
 		src="resources/img/File_xls.png">
 	</a>
+	
+		<script type="text/javascript">
+		function changeVisibilyExports() {
+			if(<%=extraActivityList.isEmpty()%>){
+				  document.getElementById('pdf').style.visibility = 'hidden';
+				  document.getElementById('xls').style.visibility = 'hidden';
+			}else{
+				 document.getElementById('pdf').style.visibility = 'visible';
+				 document.getElementById('xls').style.visibility = 'visible';
+			}
+		}
+		
+		window.onload = function() {
+			changeVisibilyExports();
+		}
+     </script>
 </body>
 </html>

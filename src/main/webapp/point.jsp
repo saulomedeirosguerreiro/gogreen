@@ -101,5 +101,23 @@ String title = user != null?  user.getName() + ", Bata o seu ponto" : "Atenção
 	<a id="xls" href="export?action=excel&model=point"> <img
 		src="resources/img/File_xls.png">
 	</a>
+	
+		<script type="text/javascript">
+		function changeVisibilyExports() {
+			if(<%=pointList.isEmpty()%>){
+				console.log("lista vazia")
+				  document.getElementById('pdf').style.visibility = 'hidden';
+				  document.getElementById('xls').style.visibility = 'hidden';
+			}else{
+				console.log("lista cheia")
+				 document.getElementById('pdf').style.visibility = 'visible';
+				 document.getElementById('xls').style.visibility = 'visible';
+			}
+		}
+		
+		window.onload = function() {
+			changeVisibilyExports();
+		}
+     </script>
 </body>
 </html>
