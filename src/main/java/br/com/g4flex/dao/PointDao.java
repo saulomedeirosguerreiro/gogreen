@@ -35,10 +35,11 @@ public class PointDao {
 		String today = DateUtil.getTodayText();
 		EntityManager manager = JPAResourceBean.getEntityManager();
 		manager.getTransaction().begin();
-		Query query = manager.createQuery("SELECT p FROM Point p where p.user = :paramUser AND p.checkInHour BETWEEN :paramstartDate AND :paramEndDate ");
+		Query query = manager.createQuery("SELECT p FROM Point p where p.user = :paramUser and p.date = :paramDate AND p.checkInHour BETWEEN :paramStartHour AND :paramEndHour ");
 		query.setParameter("paramUser", user);
-		query.setParameter("paramstartDate", DateUtil.stringToDate(today + " 00:00:00"));
-		query.setParameter("paramEndDate", DateUtil.stringToDate(today + " 23:59:59"));
+		query.setParameter("paramStartHour",DateUtil.stringToDate("00:00:00", DateUtil.PATTERN_HOUR));
+		query.setParameter("paramEndHour",DateUtil.stringToDate("23:59:59", DateUtil.PATTERN_HOUR));
+		query.setParameter("paramDate", DateUtil.stringToDate(today, DateUtil.PATTERN_DATE));
 		Point point = null;
 		try {
 			point = (Point) query.getSingleResult();
