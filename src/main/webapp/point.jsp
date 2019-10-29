@@ -13,15 +13,27 @@
 <link rel="stylesheet" type="text/css" href="css/form.css">
 <link rel="stylesheet" type="text/css" href="css/global.css">
 <link rel="stylesheet" type="text/css" href="css/table.css">
+<link rel="stylesheet" type="text/css" href="css/pagination.css">
+<link rel="stylesheet" type="text/css" href="css/page_with_pagination.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<%	PointService pointService = new PointService();
-User user = (User)session.getAttribute("user"); 
-String title = user != null?  user.getName() + ", Bata o seu ponto" : "Atenção, Sua sessão expirou !"; 
+<%
+	PointService pointService = new PointService();
+	User user = (User) session.getAttribute("user");
+	String title = user != null ? user.getName() + ", Bata o seu ponto" : "Atenção, Sua sessão expirou !";
+
+	//pagination
+
+	int quantity = request.getParameter("quantity") != null && !request.getParameter("quantity").isEmpty()
+			? Integer.parseInt(request.getParameter("quantity"))
+			: 15;
+	int numberOfPage = request.getParameter("page") != null && !request.getParameter("page").isEmpty()
+			? Integer.parseInt(request.getParameter("page"))
+			: 1;
 %>
 <body>
 	<div id="content">
@@ -36,6 +48,8 @@ String title = user != null?  user.getName() + ", Bata o seu ponto" : "Atenção
 				<option value="Quarta-feira">Quarta-feira</option>
 				<option value="Quinta-feira">Quinta-feira</option>
 				<option value="Sexta-feira">Sexta-feira</option>
+				<option value="Sábado">Sábado</option>
+				<option value="Domingo">Domingo</option>
 			</select>
 			<textarea name=justification rows="4" cols="50"
 				placeholder="Justificativa" maxlength="150"></textarea>
@@ -50,74 +64,105 @@ String title = user != null?  user.getName() + ", Bata o seu ponto" : "Atenção
 			Point pointToday = pointService.findTodayPoint(user);
 			if (pointToday != null) {
 		%>
-		<output><%=pointToday.getCheckInHour()!=null ? pointToday.getCheckInHour() : "--:--:--"%></output>
-		<output style="margin-left: 5px;"><%=pointToday.getCheckOutHour()!=null ? pointToday.getCheckOutHour() : "--:--:--"%></output>
+		<output><%=pointToday.getCheckInHour() != null ? pointToday.getCheckInHour() : "--:--:--"%></output>
+		<output style="margin-left: 5px;"><%=pointToday.getCheckOutHour() != null ? pointToday.getCheckOutHour() : "--:--:--"%></output>
 		<%
-			}else {
+			} else {
 		%>
 		<output>--:--:--</output>
 		<output style="margin-left: 15px;">--:--:--</output>
-		<%} %>
+		<%
+			}
+		%>
 	</div>
-	<table id="customers">
-		<thead>
-			<tr>
-				<th>Data</th>
-				<th>Dia da Semana</th>
-				<th>Horário de Entrada</th>
-				<th>Horário de Saída</th>
-				<th>Horas Trabalhadas</th>
-				<th>Analista</th>
-				<th>Justificativa</th>
-			</tr>
+	<article>
+		<table id="customers">
+			<thead>
+				<tr>
+					<th>Data</th>
+					<th>Dia da Semana</th>
+					<th>Horário de Entrada</th>
+					<th>Horário de Saída</th>
+					<th>Horas Trabalhadas</th>
+					<th>Analista</th>
+					<th>Justificativa</th>
+				</tr>
 
-		</thead>
-		<tbody>
+			</thead>
+			<tbody>
+				<%
+					List<Point> pointList = pointService.listWithPagination(quantity, numberOfPage);
+
+					for (Point point : pointList) {
+				%>
+
+				<tr>
+					<td><%=point.getDate() == null ? "N/A" : point.getDateFormatted()%></td>
+					<td><%=point.getDayOfWeek() == null ? "N/A" : point.getDayOfWeek()%></td>
+					<td><%=point.getCheckInHour() == null ? "N/A" : point.getCheckInHour()%></td>
+					<td><%=point.getCheckOutHour() == null ? "N/A" : point.getCheckOutHour()%></td>
+					<td><%=point.getWorkedHour() == null ? "N/A" : point.getWorkedHour()%></td>
+					<td><%=point.getUser() == null ? "N/A" : point.getUser().getName()%></td>
+					<td><%=point.getJustification() == null ? "N/A" : point.getJustification()%></td>
+				</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
+
+		<div class="pagination">
 			<%
-				List<Point> pointList = pointService.list();
-
-				for (Point point : pointList) {
+				int quantityPage = pointService.getQuantityPage(quantity);
+				if(quantityPage > 1){
+					for (int i = 1; i <= quantityPage; i++) {
 			%>
-
-			<tr>
-				<td><%=point.getDate() == null ? "N/A" : point.getDateFormatted()%></td>
-				<td><%=point.getDayOfWeek() == null ? "N/A" : point.getDayOfWeek()%></td>
-				<td><%=point.getCheckInHour() == null ? "N/A" : point.getCheckInHour()%></td>
-				<td><%=point.getCheckOutHour() == null ? "N/A" : point.getCheckOutHour()%></td>
-				<td><%=point.getWorkedHour() == null ? "N/A" : point.getWorkedHour()%></td>
-				<td><%=point.getUser() == null ? "N/A" : point.getUser().getName()%></td>
-				<td><%=point.getJustification() == null ? "N/A" : point.getJustification()%></td>
-			</tr>
+			<a id="page<%=i%>" onclick ="changeSelectedPage()" href="/gogreen/point.jsp?quantity=<%=quantity%>&page=<%=i%>"><%=i%></a>
 			<%
+					}
 				}
 			%>
-		</tbody>
-	</table>
+		</div>
+	</article>
 
-	<a id="pdf" href="export?action=pdf&model=point"> <img
-		src="resources/img/File_pdf.png">
-	</a>
-
-	<a id="xls" href="export?action=excel&model=point"> <img
-		src="resources/img/File_xls.png">
-	</a>
+	<div id="export">
+		<a id="pdf" href="export?action=pdf&model=point"> <img
+			src="resources/img/File_pdf.png">
+		</a> <a id="xls" href="export?action=excel&model=point"> <img
+			src="resources/img/File_xls.png">
+		</a>
+	</div>
 	
-		<script type="text/javascript">
+	<script type="text/javascript">
 		function changeVisibilyExports() {
-			if(<%=pointList.isEmpty()%>){
+			if (
+	<%=pointList.isEmpty()%>
+		) {
 				console.log("lista vazia")
-				  document.getElementById('pdf').style.visibility = 'hidden';
-				  document.getElementById('xls').style.visibility = 'hidden';
-			}else{
+				document.getElementById('pdf').style.visibility = 'hidden';
+				document.getElementById('xls').style.visibility = 'hidden';
+			} else {
 				console.log("lista cheia")
-				 document.getElementById('pdf').style.visibility = 'visible';
-				 document.getElementById('xls').style.visibility = 'visible';
+				document.getElementById('pdf').style.visibility = 'visible';
+				document.getElementById('xls').style.visibility = 'visible';
 			}
 		}
-		
+
+		function changeSelectedPage() {
+
+			var elems = document.querySelectorAll(".pagination");
+
+			[].forEach.call(elems, function(el) {
+			    el.classList.remove("active");
+			});
+				
+			document.getElementById('page' + <%=numberOfPage%>).classList.add("active");
+		}
+
 		window.onload = function() {
 			changeVisibilyExports();
+			changeSelectedPage();
 		}
-     </script>
+	</script>
 </body>
 </html>

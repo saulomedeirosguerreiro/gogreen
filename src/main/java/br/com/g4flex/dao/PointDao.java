@@ -60,4 +60,35 @@ public class PointDao {
 		manager.close();
 		return listOfPoint;
 	}
+	
+	public double getAmount() {
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.countAll");
+		Object result = query.getSingleResult();
+		double amount =  result != null ?  Double.parseDouble(result.toString()) : 0.0;
+		manager.getTransaction().commit();
+
+		manager.close();
+		return amount;
+	}
+	
+	
+
+	
+	public List<Point> listWithPagination(int quantity, int numberOfPage) {
+		int offset = (numberOfPage - 1) * quantity;
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.findAll");
+		query.setFirstResult(offset);
+		query.setMaxResults(quantity);
+		List<Point> listOfPoint = query.getResultList();
+		manager.getTransaction().commit();
+
+		manager.close();
+		return listOfPoint;
+	}
 }

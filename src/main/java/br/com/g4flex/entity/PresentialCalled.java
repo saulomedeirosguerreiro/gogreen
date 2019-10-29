@@ -9,18 +9,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.NamedQuery;
+
 
 import br.com.g4flex.utils.DateUtil;
 
 @Entity
 @Table(name = "presential_called")
-@NamedQuery(name="PresentialCalled.findAll", query="SELECT pc FROM PresentialCalled pc")
+@NamedQueries({
+	@NamedQuery(name="PresentialCalled.findAll", query="SELECT pc FROM PresentialCalled pc ORDER BY pc.activityDate DESC"),
+	@NamedQuery(name="PresentialCalled.countAll", query="SELECT COUNT(pc) FROM PresentialCalled pc")
+})
 public class PresentialCalled {
 	
 	@Id

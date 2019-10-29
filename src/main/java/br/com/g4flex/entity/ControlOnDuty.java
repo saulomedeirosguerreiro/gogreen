@@ -9,18 +9,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.NamedQuery;
 
 import br.com.g4flex.utils.DateUtil;
 
 @Entity
 @Table(name = "control_on_duty")
-@NamedQuery(name = "ControlOnDuty.findAll", query = "SELECT c FROM ControlOnDuty c")
+@NamedQueries({
+	@NamedQuery(name = "ControlOnDuty.findAll", query = "SELECT c FROM ControlOnDuty c ORDER BY c.date DESC"),
+	@NamedQuery(name = "ControlOnDuty.countAll", query = "SELECT COUNT(c) FROM ControlOnDuty c "),
+})
 public class ControlOnDuty {
 
 	@Id

@@ -22,6 +22,16 @@ public class ExtraActivityService {
 		return extraActivityDao.list();
 	}
 	
+	public List<ExtraActivity> listWithPagination(int quantity, int numberOfPage) { 
+		return extraActivityDao.listWithPagination( quantity,  numberOfPage);
+	}
+	
+	public int getQuantityPage(int quantity) {
+		double total  = extraActivityDao.getAmount();
+	 	return (int)Math.ceil(total/quantity);
+	}
+	
+	
 	public List<Object[]> getArrayOfArrayObject() { 
 		List<Object[]> data = new ArrayList<>();
 		List<ExtraActivity> lista = list();

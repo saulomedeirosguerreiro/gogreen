@@ -1,0 +1,24 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+
+}
+
+.pagination a {
+  color:  #ffa500;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin-bottom: 25px;
+  border: 1px solid rgba(221, 221, 211, 0.2);
+  
+}
+
+.pagination a.active {
+  background-color: #3D90D1;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #FFF;
+}

@@ -22,6 +22,15 @@ public class PresentialCalledService {
 		return presentialCalledDao.list();
 	}
 	
+	public List<PresentialCalled> listWithPagination(int quantity, int numberOfPage) { 
+		return presentialCalledDao.listWithPagination( quantity,  numberOfPage);
+	}
+	
+	public int getQuantityPage(int quantity) {
+		double total  = presentialCalledDao.getAmount();
+	 	return (int)Math.ceil(total/quantity);
+	}
+	
 	public List<Object[]> getArrayOfArrayObject() { 
 		List<Object[]> data = new ArrayList<>();
 		List<PresentialCalled> lista = list();

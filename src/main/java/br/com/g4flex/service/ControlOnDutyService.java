@@ -22,6 +22,15 @@ public class ControlOnDutyService {
 		return ControlOnDutyDao.list();
 	}
 	
+	public List<ControlOnDuty> listWithPagination(int quantity, int numberOfPage) { 
+		return ControlOnDutyDao.listWithPagination(quantity, numberOfPage);
+	}
+	
+	public int getQuantityPage(int quantity) {
+		double total  = ControlOnDutyDao.getAmount();
+	 	return (int)Math.ceil(total/quantity);
+	}
+	
 	public List<Object[]> getArrayOfArrayObject() { 
 		List<Object[]> data = new ArrayList<>();
 		List<ControlOnDuty> lista = list();

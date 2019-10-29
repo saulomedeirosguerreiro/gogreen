@@ -10,7 +10,7 @@ import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @Table(name = "activity")
-@NamedQuery(name="Activity.findAll", query="SELECT a FROM Activity a")
+@NamedQuery(name="Activity.findAll", query="SELECT a FROM Activity a ORDER BY a.name ASC")
 public class Activity {
 	
 	@Id

@@ -15,30 +15,43 @@
 <link rel="stylesheet" type="text/css" href="css/form.css">
 <link rel="stylesheet" type="text/css" href="css/global.css">
 <link rel="stylesheet" type="text/css" href="css/table.css">
+<link rel="stylesheet" type="text/css" href="css/pagination.css">
+<link rel="stylesheet" type="text/css" href="css/page_with_pagination.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript">
-function changeVisibilyRepaymentInput() {
-	let activitySelectElement = document.getElementById('activity');
-	let activitySelectedValue = "" + activitySelectElement.options[activitySelectElement.selectedIndex].innerHTML;
-	if (activitySelectedValue.toUpperCase() === 'REEMBOLSO' || activitySelectedValue.toUpperCase() === 'RESSARCIMENTO') {
-        document.getElementById('repayment').style.visibility = 'visible';
-    } else {
-        document.getElementById('repayment').style.visibility = 'hidden';
-    }
-}
+<script type="text/javascript">
+	function changeVisibilyRepaymentInput() {
+		let activitySelectElement = document.getElementById('activity');
+		let activitySelectedValue = ""
+				+ activitySelectElement.options[activitySelectElement.selectedIndex].innerHTML;
+		if (activitySelectedValue.toUpperCase() === 'REEMBOLSO'
+				|| activitySelectedValue.toUpperCase() === 'RESSARCIMENTO') {
+			document.getElementById('repayment').style.visibility = 'visible';
+		} else {
+			document.getElementById('repayment').style.visibility = 'hidden';
+		}
+	}
 
-window.onload = function() {
-	changeVisibilyRepaymentInput();
-}
+	window.onload = function() {
+		changeVisibilyRepaymentInput();
+	}
 </script>
 </head>
-<%	
-User user = (User)session.getAttribute("user"); 
-String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expirou !"; 
+<%
+	User user = (User) session.getAttribute("user");
+	String title = user != null ? "Atividade Extra" : "Atenção, Sua sessão expirou !";
+
+	//pagination
+
+	int quantity = request.getParameter("quantity") != null && !request.getParameter("quantity").isEmpty()
+			? Integer.parseInt(request.getParameter("quantity"))
+			: 15;
+	int numberOfPage = request.getParameter("page") != null && !request.getParameter("page").isEmpty()
+			? Integer.parseInt(request.getParameter("page"))
+			: 1;
 %>
 <body>
 	<div id="content">
@@ -46,7 +59,8 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 			Inicial > Atividade Extra</a>
 		<form action="extra" method="POST">
 			<output class="title"><%=title%></output>
-			<select name="activity" id="activity" onclick="changeVisibilyRepaymentInput()" required>
+			<select name="activity" id="activity"
+				onclick="changeVisibilyRepaymentInput()" required>
 				<%
 					ActivityService activityService = new ActivityService();
 					List<Activity> activityList = activityService.list();
@@ -58,9 +72,8 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 					}
 				%>
 
-			</select> 
-			<input name="repayment" id="repayment" type="number"
-				placeholder="Valor do Ressarcimento" min="0" max="20000" step="0.01"  />
+			</select> <input name="repayment" id="repayment" type="number"
+				placeholder="Valor do Ressarcimento" min="0" max="20000" step="0.01" />
 			<textarea name="description" rows="4" cols="50"
 				placeholder="Descrição" maxlength="150" required></textarea>
 			<output>Data da Atividade</output>
@@ -75,69 +88,100 @@ String title = user != null?  "Atividade Extra" : "Atenção, Sua sessão expiro
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>
-	<table id="customers">
-		<thead>
-			<tr>
-				<th>Número do Protocolo</th>
-				<th>Atividade</th>
-				<th>Analista</th>
-				<th>Descrição</th>
-				<th>Cliente</th>
-				<th>Data da Atividade</th>
-				<th>Hora de Início</th>
-				<th>Hora de Finalização</th>
-				<th>Valor</th>
-			</tr>
+	<article>
+		<table id="customers">
+			<thead>
+				<tr>
+					<th>Número do Protocolo</th>
+					<th>Atividade</th>
+					<th>Analista</th>
+					<th>Descrição</th>
+					<th>Cliente</th>
+					<th>Data da Atividade</th>
+					<th>Hora de Início</th>
+					<th>Hora de Finalização</th>
+					<th>Valor</th>
+				</tr>
 
 
-		</thead>
-		<tbody>
+			</thead>
+			<tbody>
+				<%
+					ExtraActivityService extraActivityService = new ExtraActivityService();
+					List<ExtraActivity> extraActivityList = extraActivityService.listWithPagination(quantity, numberOfPage);
+
+					for (ExtraActivity extraActivity : extraActivityList) {
+				%>
+
+				<tr>
+					<td><%=extraActivity.getProtocolNumber() == null ? "N/A" : extraActivity.getProtocolNumber()%></td>
+					<td><%=extraActivity.getActivity() == null ? "N/A" : extraActivity.getActivity().getName()%></td>
+					<td><%=extraActivity.getUser() == null ? "N/A" : extraActivity.getUser().getName()%></td>
+					<td><%=extraActivity.getDescription() == null ? "N/A" : extraActivity.getDescription()%></td>
+					<td><%=extraActivity.getClientName() == null ? "N/A" : extraActivity.getClientName()%></td>
+					<td><%=extraActivity.getActivityDate() == null ? "N/A" : extraActivity.getActivityDateFormatted()%></td>
+					<td><%=extraActivity.getInitialHour() == null ? "N/A" : extraActivity.getInitialHour()%></td>
+					<td><%=extraActivity.getFinalHour() == null ? "N/A" : extraActivity.getFinalHour()%></td>
+					<td><%=extraActivity.getActivity() == null
+						? "N/A"
+						: extraActivity.getRepayment() == null
+								? extraActivity.getActivity().getValue()
+								: extraActivity.getRepayment()%></td>
+				</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
+
+		<div class="pagination">
 			<%
-				ExtraActivityService extraActivityService = new ExtraActivityService();
-				List<ExtraActivity> extraActivityList = extraActivityService.list();
-
-				for (ExtraActivity extraActivity : extraActivityList) {
+				int quantityPage = extraActivityService.getQuantityPage(quantity);
+				if(quantityPage > 1){
+					for (int i = 1; i <= quantityPage; i++) {
 			%>
-
-			<tr>
-				<td><%=extraActivity.getProtocolNumber() == null ? "N/A" : extraActivity.getProtocolNumber()%></td>
-				<td><%=extraActivity.getActivity() == null ? "N/A" : extraActivity.getActivity().getName()%></td>
-				<td><%=extraActivity.getUser() == null ? "N/A" : extraActivity.getUser().getName()%></td>
-				<td><%=extraActivity.getDescription() == null ? "N/A" : extraActivity.getDescription()%></td>
-				<td><%=extraActivity.getClientName() == null ? "N/A" : extraActivity.getClientName()%></td>
-				<td><%=extraActivity.getActivityDate() == null ? "N/A" : extraActivity.getActivityDateFormatted()%></td>
-				<td><%=extraActivity.getInitialHour() == null ? "N/A" : extraActivity.getInitialHour()%></td>
-				<td><%=extraActivity.getFinalHour() == null ? "N/A" : extraActivity.getFinalHour()%></td>
-				<td><%=extraActivity.getActivity() == null ? "N/A" : extraActivity.getRepayment() == null ? extraActivity.getActivity().getValue() : extraActivity.getRepayment()%></td>
-			</tr>
+			<a id="page<%=i%>" onclick ="changeSelectedPage()" href="/gogreen/extra.jsp?quantity=<%=quantity%>&page=<%=i%>"><%=i%></a>
 			<%
+					}
 				}
 			%>
-		</tbody>
-	</table>
-
-	<a id="pdf" href="export?action=pdf&model=extra"> <img
-		src="resources/img/File_pdf.png">
-	</a>
-
-	<a id="xls" href="export?action=excel&model=extra"> <img
-		src="resources/img/File_xls.png">
-	</a>
-	
-		<script type="text/javascript">
+		</div>
+	</article>
+	<div id="export">
+		<a id="pdf" href="export?action=pdf&model=extra"> <img
+			src="resources/img/File_pdf.png">
+		</a> <a id="xls" href="export?action=excel&model=extra"> <img
+			src="resources/img/File_xls.png">
+		</a>
+	</div>
+	<script type="text/javascript">
 		function changeVisibilyExports() {
-			if(<%=extraActivityList.isEmpty()%>){
-				  document.getElementById('pdf').style.visibility = 'hidden';
-				  document.getElementById('xls').style.visibility = 'hidden';
-			}else{
-				 document.getElementById('pdf').style.visibility = 'visible';
-				 document.getElementById('xls').style.visibility = 'visible';
+			if (
+	<%=extraActivityList.isEmpty()%>
+		) {
+				document.getElementById('pdf').style.visibility = 'hidden';
+				document.getElementById('xls').style.visibility = 'hidden';
+			} else {
+				document.getElementById('pdf').style.visibility = 'visible';
+				document.getElementById('xls').style.visibility = 'visible';
 			}
 		}
-		
+
+		function changeSelectedPage() {
+
+			var elems = document.querySelectorAll(".pagination");
+
+			[].forEach.call(elems, function(el) {
+			    el.classList.remove("active");
+			});
+				
+			document.getElementById('page' + <%=numberOfPage%>).classList.add("active");
+		}
+
 		window.onload = function() {
 			changeVisibilyExports();
+			changeSelectedPage();
 		}
-     </script>
+	</script>
 </body>
 </html>

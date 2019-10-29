@@ -23,12 +23,21 @@ public class PointService {
 		return pointDao.list();
 	}
 	
+	public List<Point> listWithPagination(int quantity, int numberOfPage) { 
+		return pointDao.listWithPagination( quantity,  numberOfPage);
+	}
+	
 	public Point findTodayPoint(User user) { 
 		return pointDao.find(user);
 	}
 
 	public void update(Point point) {
 		pointDao.update(point);
+	}
+	
+	public int getQuantityPage(int quantity) {
+		double total  = pointDao.getAmount();
+	 	return (int)Math.ceil(total/quantity);
 	}
 	
 	public List<Object[]> getArrayOfArrayObject() { 
