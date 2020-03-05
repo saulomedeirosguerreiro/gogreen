@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class FlexExportClient {
 
-	private final static String BASE_URL = "http://10.8.60.70:3330";
+	private final static String BASE_URL = "http://34.221.40.146:3330";
 //	private final static String BASE_URL = "http://localhost:3333";
 
 	private static HttpURLConnection init(String url) throws IOException {
