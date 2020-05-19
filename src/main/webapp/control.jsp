@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="css/table.css">
 <link rel="stylesheet" type="text/css" href="css/pagination.css">
 <link rel="stylesheet" type="text/css" href="css/page_with_pagination.css">
+<link rel="stylesheet" type="text/css" href="css/filter.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap"
 	rel="stylesheet">
@@ -27,12 +28,20 @@
 
 	//pagination
 
-	int quantity = request.getParameter("quantity") != null && !request.getParameter("quantity").isEmpty()
-			? Integer.parseInt(request.getParameter("quantity"))
-			: 15;
+		int quantityPerPage = 10;
+	String textQuantity = String.valueOf(quantityPerPage);
+	
+	int total = 0;
+	if(request.getAttribute("total") !=null)
+		total = (Integer)request.getAttribute("total");
+		
 	int numberOfPage = request.getParameter("page") != null && !request.getParameter("page").isEmpty()
 			? Integer.parseInt(request.getParameter("page"))
 			: 1;
+			
+	String textPage = String.valueOf(numberOfPage);	
+			
+	List<ControlOnDuty> controlOnDutyList = (List<ControlOnDuty>) request.getAttribute("controlOnDutyList");
 %>
 <body>
 	<div id="content">
@@ -64,6 +73,27 @@
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>
+		<div>
+		<section class="filters">
+			<h1>Filtros</h1>
+			<form action="control" method="GET">
+				<input
+					name="username" type="text" placeholder="Nome do Analista"
+					maxlength="100" />
+				<output>Dt Inicial</output>
+				<input name="initialdate" type="date" value=<%=request.getParameter("initialdate")%>  required/>
+				<div>
+					<output>Dt Final</output>
+					<input name="finaldate" type="date" value=<%=request.getParameter("finaldate")%> required/>
+				</div>
+				<input type="hidden" name="quantity" value="<%=textQuantity%>">
+    			<input type="hidden" name="page" value="<%=textPage%>">
+				<button class="btn-search" type="submit">Buscar</button>
+			</form> 
+		</section>
+   <%
+		if(controlOnDutyList!=null && !controlOnDutyList.isEmpty()){
+   %>
 
 	<article>
 		<table id="customers">
@@ -84,9 +114,6 @@
 			</thead>
 			<tbody>
 				<%
-					ControlOnDutyService controlOnDutyService = new ControlOnDutyService();
-					List<ControlOnDuty> controlOnDutyList = controlOnDutyService.listWithPagination(quantity, numberOfPage);
-
 					for (ControlOnDuty controlOnDuty : controlOnDutyList) {
 				%>
 
@@ -108,24 +135,33 @@
 		</table>
 	
 		<div class="pagination">
-			<%
-				int quantityPage = controlOnDutyService.getQuantityPage(quantity);
+				<%
+				ControlOnDutyService controlOnDutyService = new ControlOnDutyService();
+				int quantityPage = controlOnDutyService.getQuantityPage(quantityPerPage, total);
 				if(quantityPage > 1){
 					for (int i = 1; i <= quantityPage; i++) {
 			%>
-					<a id="page<%=i%>" onclick ="changeSelectedPage()" href="/gogreen/control.jsp?quantity=<%=quantity%>&page=<%=i%>"><%=i%></a>
+			<a id="page<%=i%>" onclick ="changeSelectedPage()" href="/gogreen/control?username=<%=request.getParameter("username")%>&initialdate=<%=request.getParameter("initialdate")%>&finaldate=<%=request.getParameter("finaldate")%>&quantity=<%=quantityPerPage%>&page=<%=i%>"><%=i%></a>
 			<%
 					}
 				}
 			%>
 		</div>
 	</article>
-
-
+	<%
+		}else {
+	%>
+			<p class="message">
+				Nenhum resultado encontrado
+			</p>
+	<% 
+		}
+	%>	
+	</div>
 	<div id="export">
-		<a id="pdf" href="export?action=pdf&model=control"> <img
+		<a id="pdf" href="export?action=pdf&model=control&username=<%=request.getParameter("username")%>&initialdate=<%=request.getParameter("initialdate")%>&finaldate=<%=request.getParameter("finaldate")%>"> <img
 			src="resources/img/File_pdf.png">
-		</a> <a id="xls" href="export?action=excel&model=control"> <img
+		</a> <a id="xls" href="export?action=excel&model=control&username=<%=request.getParameter("username")%>&initialdate=<%=request.getParameter("initialdate")%>&finaldate=<%=request.getParameter("finaldate")%>"> <img
 			src="resources/img/File_xls.png">
 		</a>
 	</div>
@@ -133,7 +169,7 @@
 	<script type="text/javascript">
 		function changeVisibilyExports() {
 			if (
-	<%=controlOnDutyList.isEmpty()%>
+	<%=controlOnDutyList==null || controlOnDutyList.isEmpty()%>
 		) {
 				console.log("lista vazia")
 				document.getElementById('pdf').style.visibility = 'hidden';

@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="css/table.css">
 <link rel="stylesheet" type="text/css" href="css/pagination.css">
 <link rel="stylesheet" type="text/css" href="css/page_with_pagination.css">
+<link rel="stylesheet" type="text/css" href="css/filter.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap"
 	rel="stylesheet">
@@ -46,13 +47,24 @@
 
 	//pagination
 
-	int quantity = request.getParameter("quantity") != null && !request.getParameter("quantity").isEmpty()
-			? Integer.parseInt(request.getParameter("quantity"))
-			: 15;
+	int quantityPerPage = 10;
+	String textQuantity = String.valueOf(quantityPerPage);
+	
+	int total = 0;
+	if(request.getAttribute("total") !=null)
+		total = (Integer)request.getAttribute("total");
+		
 	int numberOfPage = request.getParameter("page") != null && !request.getParameter("page").isEmpty()
 			? Integer.parseInt(request.getParameter("page"))
 			: 1;
+			
+	String textPage = String.valueOf(numberOfPage);	
+	
+			
+	List<ExtraActivity> extraActivityList = (List<ExtraActivity>) request.getAttribute("extraActivityList");
 %>
+
+
 <body>
 	<div id="content">
 		<a href="/gogreen/home.jsp"><i class="fa fa-home"></i> Tela
@@ -88,6 +100,27 @@
 			<button class="btn" type="submit">Criar</button>
 		</Form>
 	</div>
+	<div>
+		<section class="filters">
+			<h1>Filtros</h1>
+			<form action="extra" method="GET">
+				<input
+					name="username" type="text" placeholder="Nome do Analista"
+					maxlength="100" />
+				<output>Dt Inicial</output>
+				<input name="initialdate" type="date" value=<%=request.getParameter("initialdate")%>  required/>
+				<div>
+					<output>Dt Final</output>
+					<input name="finaldate" type="date" value=<%=request.getParameter("finaldate")%> required/>
+				</div>
+				<input type="hidden" name="quantity" value="<%=textQuantity%>">
+    			<input type="hidden" name="page" value="<%=textPage%>">
+				<button class="btn-search" type="submit">Buscar</button>
+			</form> 
+		</section>
+   <%
+		if(extraActivityList!=null && !extraActivityList.isEmpty()){
+   %>
 	<article>
 		<table id="customers">
 			<thead>
@@ -107,10 +140,8 @@
 			</thead>
 			<tbody>
 				<%
-					ExtraActivityService extraActivityService = new ExtraActivityService();
-					List<ExtraActivity> extraActivityList = extraActivityService.listWithPagination(quantity, numberOfPage);
 
-					for (ExtraActivity extraActivity : extraActivityList) {
+						for (ExtraActivity extraActivity : extraActivityList) {
 				%>
 
 				<tr>
@@ -129,35 +160,45 @@
 								: extraActivity.getRepayment()%></td>
 				</tr>
 				<%
-					}
+						}
 				%>
 			</tbody>
 		</table>
-
 		<div class="pagination">
 			<%
-				int quantityPage = extraActivityService.getQuantityPage(quantity);
+				ExtraActivityService extraActivityService = new ExtraActivityService();
+				int quantityPage = extraActivityService.getQuantityPage(quantityPerPage, total);
 				if(quantityPage > 1){
 					for (int i = 1; i <= quantityPage; i++) {
 			%>
-			<a id="page<%=i%>" onclick ="changeSelectedPage()" href="/gogreen/extra.jsp?quantity=<%=quantity%>&page=<%=i%>"><%=i%></a>
+			<a id="page<%=i%>" onclick ="changeSelectedPage()" href="/gogreen/extra?username=<%=request.getParameter("username")%>&initialdate=<%=request.getParameter("initialdate")%>&finaldate=<%=request.getParameter("finaldate")%>&quantity=<%=quantityPerPage%>&page=<%=i%>"><%=i%></a>
 			<%
 					}
 				}
 			%>
 		</div>
 	</article>
+	<%
+		}else {
+	%>
+			<p class="message">
+				Nenhum resultado encontrado
+			</p>
+	<% 
+		}
+	%>	
+	</div>
 	<div id="export">
-		<a id="pdf" href="export?action=pdf&model=extra"> <img
+		<a id="pdf" href="export?action=pdf&model=extra&username=<%=request.getParameter("username")%>&initialdate=<%=request.getParameter("initialdate")%>&finaldate=<%=request.getParameter("finaldate")%>"> <img
 			src="resources/img/File_pdf.png">
-		</a> <a id="xls" href="export?action=excel&model=extra"> <img
+		</a> <a id="xls" href="export?action=excel&model=extra&username=<%=request.getParameter("username")%>&initialdate=<%=request.getParameter("initialdate")%>&finaldate=<%=request.getParameter("finaldate")%>"> <img
 			src="resources/img/File_xls.png">
 		</a>
 	</div>
 	<script type="text/javascript">
 		function changeVisibilyExports() {
 			if (
-	<%=extraActivityList.isEmpty()%>
+		<%=extraActivityList==null || extraActivityList.isEmpty()%>
 		) {
 				document.getElementById('pdf').style.visibility = 'hidden';
 				document.getElementById('xls').style.visibility = 'hidden';
@@ -182,6 +223,7 @@
 			changeVisibilyExports();
 			changeSelectedPage();
 		}
+		
 	</script>
 </body>
 </html>

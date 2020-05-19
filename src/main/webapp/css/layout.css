@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 body {
-	background: linear-gradient(-90deg, #306BE2, #000);
-	height: 100%;
+	background: linear-gradient(#306BE2, #000) ;
+	min-height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -46,6 +46,7 @@ button {
 
 button:hover {
   background-color: #FFF;
+  color: #ffa500;
 }
 
 a {

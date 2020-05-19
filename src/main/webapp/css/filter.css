@@ -1,0 +1,34 @@
+.filters {
+	margin-left: 1em;
+}
+
+.filters form {
+	/*background-color:yellow;*/
+	flex-direction:row;
+	flex-wrap: wrap;
+	align-items: center; 
+}
+
+.btn-search{
+	width: 95%;
+	margin-top: 0.7em;
+	color: white;
+	border: 4px solid #FAA500;
+	background-color: black;
+	opacity: 0.2;
+}
+
+.btn-search:hover {
+	color: #ffa500;
+}
+
+h1 {
+	color: white;
+	opacity: 0.5;
+}
+
+.message {
+	margin: 1em;
+	color:gray;
+	font-weight: bold;
+}

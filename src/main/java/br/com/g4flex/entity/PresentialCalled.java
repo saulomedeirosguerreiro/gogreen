@@ -24,6 +24,9 @@ import br.com.g4flex.utils.DateUtil;
 @Table(name = "presential_called")
 @NamedQueries({
 	@NamedQuery(name="PresentialCalled.findAll", query="SELECT pc FROM PresentialCalled pc ORDER BY pc.activityDate DESC"),
+	@NamedQuery(name="PresentialCalled.findByUserNameAndActivityDate", query="SELECT pc FROM PresentialCalled pc WHERE lower(pc.user.name) LIKE :userName AND pc.activityDate BETWEEN :initialDate AND :finalDate ORDER BY pc.activityDate DESC"),
+	@NamedQuery(name="PresentialCalled.findByUserName", query="SELECT pc FROM PresentialCalled pc WHERE lower(pc.user.name) LIKE :userName ORDER BY pc.activityDate DESC"),
+	@NamedQuery(name="PresentialCalled.findByActivityDate", query="SELECT pc FROM PresentialCalled pc WHERE pc.activityDate BETWEEN :initialDate AND :finalDate ORDER BY pc.activityDate DESC"),
 	@NamedQuery(name="PresentialCalled.countAll", query="SELECT COUNT(pc) FROM PresentialCalled pc")
 })
 public class PresentialCalled {

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import br.com.g4flex.dto.FiltersDTO;
 import br.com.g4flex.entity.Point;
 import br.com.g4flex.entity.User;
 import br.com.g4flex.utils.DateUtil;
@@ -91,4 +92,98 @@ public class PointDao {
 		manager.close();
 		return listOfPoint;
 	}
+
+	public List<Point> findByUserNameAndActivityDate(FiltersDTO filters, int quantity, int numberOfPage) {
+		int offset = (numberOfPage - 1) * quantity;
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.findByUserNameAndActivityDate");
+		query.setParameter("userName", "%" + filters.getUserName().toLowerCase() + "%");
+		query.setParameter("initialDate", filters.getInitialDate());
+		query.setParameter("finalDate", filters.getFinalDate());
+		query.setFirstResult(offset);
+		query.setMaxResults(quantity);
+		List<Point> listOfPoint = query.getResultList();
+		manager.getTransaction().commit();
+
+		manager.close();
+		return listOfPoint;
+	}
+	
+	public List<Point> findByActivityDate(FiltersDTO filters, int quantity, int numberOfPage) {
+		int offset = (numberOfPage - 1) * quantity;
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.findByActivityDate");
+		query.setParameter("initialDate", filters.getInitialDate());
+		query.setParameter("finalDate", filters.getFinalDate());
+		query.setFirstResult(offset);
+		query.setMaxResults(quantity);
+		List<Point> listOfPoint = query.getResultList();
+		manager.getTransaction().commit();
+
+		manager.close();
+		return listOfPoint;
+	}
+	
+	public List<Point> findByUserName(FiltersDTO filters, int quantity, int numberOfPage) {
+		int offset = (numberOfPage - 1) * quantity;
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.findByUserName");
+		query.setParameter("userName", "%" + filters.getUserName().toLowerCase() + "%");
+		query.setFirstResult(offset);
+		query.setMaxResults(quantity);
+		List<Point> listOfPoint = query.getResultList();
+		manager.getTransaction().commit();
+
+		manager.close();
+		return listOfPoint;
+	}
+	
+	public List<Point> findByUserNameAndActivityDate(FiltersDTO filters) {
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.findByUserNameAndActivityDate");
+		query.setParameter("userName", "%" + filters.getUserName().toLowerCase() + "%");
+		query.setParameter("initialDate", filters.getInitialDate());
+		query.setParameter("finalDate", filters.getFinalDate());
+		List<Point> listOfPoint = query.getResultList();
+		manager.getTransaction().commit();
+
+		manager.close();
+		return listOfPoint;
+	}
+	
+	public List<Point> findByActivityDate(FiltersDTO filters) {
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.findByActivityDate");
+		query.setParameter("initialDate", filters.getInitialDate());
+		query.setParameter("finalDate", filters.getFinalDate());
+		List<Point> listOfPoint = query.getResultList();
+		manager.getTransaction().commit();
+
+		manager.close();
+		return listOfPoint;
+	}
+	
+	public List<Point> findByUserName(FiltersDTO filters) {
+		EntityManager manager = JPAResourceBean.getEntityManager();
+
+		manager.getTransaction().begin();
+		Query query = manager.createNamedQuery("Point.findByUserName");
+		query.setParameter("userName", "%" + filters.getUserName().toLowerCase() + "%");
+		List<Point> listOfPoint = query.getResultList();
+		manager.getTransaction().commit();
+
+		manager.close();
+		return listOfPoint;
+	}
+
 }

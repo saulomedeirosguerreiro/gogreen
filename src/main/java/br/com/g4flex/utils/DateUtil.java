@@ -26,6 +26,7 @@ public class DateUtil {
 	}
 
 	public static String convert(long seconds) {
+		seconds = Math.abs(seconds);
 		int day = (int) TimeUnit.SECONDS.toDays(seconds);
 		long hrs = TimeUnit.SECONDS.toHours(seconds) - TimeUnit.DAYS.toHours(day);
 		long min = TimeUnit.SECONDS.toMinutes(seconds) - TimeUnit.DAYS.toMinutes(day) - TimeUnit.HOURS.toMinutes(hrs);
@@ -45,7 +46,7 @@ public class DateUtil {
 		try {
 			data = fmt.parse(dateText);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return data;
 	}

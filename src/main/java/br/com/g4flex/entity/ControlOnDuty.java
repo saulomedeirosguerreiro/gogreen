@@ -23,6 +23,9 @@ import br.com.g4flex.utils.DateUtil;
 @Table(name = "control_on_duty")
 @NamedQueries({
 	@NamedQuery(name = "ControlOnDuty.findAll", query = "SELECT c FROM ControlOnDuty c ORDER BY c.date DESC"),
+	@NamedQuery(name = "ControlOnDuty.findByUserNameAndActivityDate", query = "SELECT c FROM ControlOnDuty c WHERE lower(c.user.name) LIKE :userName AND c.date BETWEEN :initialDate AND :finalDate ORDER BY c.date DESC"),
+	@NamedQuery(name = "ControlOnDuty.findByUserName", query = "SELECT c FROM ControlOnDuty c WHERE lower(c.user.name) LIKE :userName ORDER BY c.date DESC"),
+	@NamedQuery(name = "ControlOnDuty.findByActivityDate", query = "SELECT c FROM ControlOnDuty c WHERE c.date BETWEEN :initialDate AND :finalDate ORDER BY c.date DESC"),
 	@NamedQuery(name = "ControlOnDuty.countAll", query = "SELECT COUNT(c) FROM ControlOnDuty c "),
 })
 public class ControlOnDuty {

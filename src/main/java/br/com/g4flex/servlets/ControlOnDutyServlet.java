@@ -3,7 +3,9 @@ package br.com.g4flex.servlets;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,12 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.com.g4flex.entity.Activity;
+import br.com.g4flex.dto.FiltersDTO;
 import br.com.g4flex.entity.ControlOnDuty;
-import br.com.g4flex.entity.ExtraActivity;
 import br.com.g4flex.entity.User;
 import br.com.g4flex.service.ControlOnDutyService;
-import br.com.g4flex.service.ExtraActivityService;
 import br.com.g4flex.utils.DateUtil;
 
 @WebServlet("/control")
@@ -53,6 +53,25 @@ public class ControlOnDutyServlet extends HttpServlet {
 		createNewControlOnDuty(callNumber,  justification,  clientName,  dayOfWeek,  date,
 				 initialHour,  finalHour);
 		response.sendRedirect("/gogreen/control.jsp");
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		init(request, response);
+		int quantity =  Integer.valueOf(request.getParameter("quantity"));
+		int numberOfPage =  Integer.valueOf(request.getParameter("page"));
+		String userName = request.getParameter("username");
+		Date initialDate = DateUtil.stringToDate(request.getParameter("initialdate"), DateUtil.PATTERN_DATE);
+		Date finalDate = DateUtil.stringToDate(request.getParameter("finaldate"), DateUtil.PATTERN_DATE);
+		//System.out.println(initialDate + ", " + finalDate + ", " + userName + ", quantity = " + quantity + ", page = " + numberOfPage);
+		ControlOnDutyService controlOnDutyService = new ControlOnDutyService();
+		FiltersDTO filters  = new FiltersDTO (userName, initialDate,finalDate);
+		List<ControlOnDuty> controlOnDutyListWithPagination = controlOnDutyService.findWithPagination(filters,quantity, numberOfPage);
+		List<ControlOnDuty> controlOnDutyList = controlOnDutyService.find(filters);
+		request.setAttribute("controlOnDutyList", controlOnDutyListWithPagination);
+		request.setAttribute("total", controlOnDutyList!=null ? controlOnDutyList.size() : 0);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/control.jsp");
+			    dispatcher.forward(request, response);
 	}
 
 	private void createNewControlOnDuty(String callNumber, String justification, String clientName, String dayOfWeek, Date date,

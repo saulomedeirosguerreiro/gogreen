@@ -2,6 +2,7 @@ package br.com.g4flex.servlets;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.g4flex.client.FlexExportClient;
+import br.com.g4flex.dto.FiltersDTO;
 import br.com.g4flex.service.ActivityService;
 import br.com.g4flex.service.ControlOnDutyService;
 import br.com.g4flex.service.ExtraActivityService;
 import br.com.g4flex.service.PointService;
 import br.com.g4flex.service.PresentialCalledService;
+import br.com.g4flex.utils.DateUtil;
 import br.com.g4flex.utils.JsonUtil;
 
 @WebServlet("/export")
@@ -52,26 +55,31 @@ public class ExportServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = init(request, response);
 		String model = request.getParameter("model");
+		
+		String userName = request.getParameter("username");
+		Date initialDate = DateUtil.stringToDate(request.getParameter("initialdate"), DateUtil.PATTERN_DATE);
+		Date finalDate = DateUtil.stringToDate(request.getParameter("finaldate"), DateUtil.PATTERN_DATE);
+		FiltersDTO filters  = new FiltersDTO (userName, initialDate,finalDate);
 
 		String json = "";
 		if (model.equals("presential")) {
 			String[] header = { "Número do Chamado", "Analista", "Cliente", "Data da Atividade" };
-			json = JsonUtil.getJson(header, presentialCalledService.getArrayOfArrayObject(), "Chamado Presencial");
+			json = JsonUtil.getJson(header, presentialCalledService.getArrayOfArrayObject(filters), "Chamado Presencial");
 		} else if (model.equals("extra")) {
 			String[] header = { "Número do Protocolo", "Atividade", "Analista", "Descrição", "Cliente",
 					"Data da Atividade", "Hora de Início", "Hora de Finalização", "Valor" };
-			json = JsonUtil.getJson(header, extraActivityService.getArrayOfArrayObject(), "Atividade Extra");
+			json = JsonUtil.getJson(header, extraActivityService.getArrayOfArrayObject(filters), "Atividade Extra");
 		} else if (model.equals("point")) {
 			String[] header = { "Data", "Dia da Semana", "Horário de Entrada", "Horário de Saída", "Horas Trabalhadas",
 					"Analista", "Justificativa" };
-			json = JsonUtil.getJson(header, pointService.getArrayOfArrayObject(), "Ponto");
+			json = JsonUtil.getJson(header, pointService.getArrayOfArrayObject(filters), "Ponto");
 		} else if (model.equals("activity")) {
 			String[] header = { "Atividade", "Valor" };
 			json = JsonUtil.getJson(header, activityService.getArrayOfArrayObject(), "Atividade");
 		} else if (model.equals("control")) {
 			String[] header = { "Data", "Dia da Semana", "Número do Chamado", "Hora de Início", "Hora de Finalização",
 					"Horas Trabalhadas", "Analista", "Cliente", "Justificativa" };
-			json = JsonUtil.getJson(header, controlOnDutyService.getArrayOfArrayObject(), "Controle do Plantão");
+			json = JsonUtil.getJson(header, controlOnDutyService.getArrayOfArrayObject(filters), "Controle do Plantão");
 		}
 
 		try {
