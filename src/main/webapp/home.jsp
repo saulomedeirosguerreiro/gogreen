@@ -17,17 +17,17 @@
 </head>
 <%
 	User user = (User) session.getAttribute("user");
-	String title = user != null ? "Seja Bem-Vindo, \n" + user.getName() : "Atenção, Sua sessão expirou !";
+	String title = user != null ? "Bem-Vindo, \n" + user.getName() : "Atenção, Sua sessão expirou !";
 %>
 <body>
-	<output class="title"><%=title%></output>
-	<div class="grid-container">
-			<a class="grid-item btn" href="/gogreen/presential.jsp"><i class="fa fa-street-view "></i> Chamado Presencial</a>
-			<a class="grid-item btn" href="/gogreen/control.jsp"><i class="fa fa-spinner"></i>  Controle do Plantão</a>
-			<a class=" grid-item btn" href="/gogreen/extra.jsp"><i class="fa fa-plus"></i>  Atividade Extra</a>
-			<a class=" grid-item btn" href="/gogreen/activity.jsp"><i class="fa fa-database"></i>  Nova Atividade</a>
-			<a class=" grid-item btn" href="/gogreen/point.jsp"><i class="fa fa-paw"></i>  Bata seu ponto</a>
-			<a class=" grid-item btn" href="auth?action=logout"><i class="fa fa-sign-out"></i>  Sair</a>
+	<output class="title welcome"><%=title%></output>
+	<div class="w3-sidebar w3-bar-block w3-black w3-xxlarge" style="width:70px">
+	  <a href="/gogreen/presential.jsp" class="w3-bar-item w3-button"><i class="fa fa-street-view"></i></a> 
+	  <a href="/gogreen/control.jsp" class="w3-bar-item w3-button"><i class="fa fa-spinner"></i></a> 
+	  <a href="/gogreen/extra.jsp" class="w3-bar-item w3-button"><i class="fa fa-plus"></i></a> 
+	  <a href="/gogreen/activity.jsp" class="w3-bar-item w3-button"><i class="fa fa-database"></i></a>
+	  <a href="/gogreen/point.jsp" class="w3-bar-item w3-button"><i class="fa fa-paw"></i></a> 
+	  <a href="auth?action=logout" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i></a> 
 	</div>
 </body>
 </html>

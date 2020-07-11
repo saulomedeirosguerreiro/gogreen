@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-	background: linear-gradient(#306BE2, #000) ;
+	background: linear-gradient(#4ABDAC, #000) ;
 	min-height: 100%;
 	display: flex;
 	align-items: center;
@@ -34,7 +34,7 @@ span {
 button {
 	margin: 5px 0 0;
 	height: 44px;
-	background: #3b9eff;
+	background: #F7B733;
 	font-weight: bold;
  	color: #FFF;
  	font-weight: bold;
@@ -45,8 +45,8 @@ button {
 }
 
 button:hover {
-  background-color: #FFF;
-  color: #ffa500;
+  background-color: #f5be4e;
+  color: #fff;
 }
 
 a {
@@ -55,6 +55,7 @@ a {
 	font-size: 16px;
 	opacity: 0.8;
 }
+
 
 form {
 	display: flex;

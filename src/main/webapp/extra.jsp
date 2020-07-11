@@ -91,7 +91,7 @@
 			<output>Data da Atividade</output>
 			<input name="activity_date" type="date" required />
 			<output>Hora de Início</output>
-			plus <input name="initial_hour" type="time" required />
+			<input name="initial_hour" type="time" required />
 			<output>Hora de Finalização</output>
 			<input name="final_hour" type="time" required /> <input
 				name="client_name" type="text" placeholder="Nome do Cliente"

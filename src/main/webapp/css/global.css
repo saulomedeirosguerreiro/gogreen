@@ -24,7 +24,13 @@ body, input, button {
 }
 
 a {
-	text-decoration: none;  color: #ffa500;
+	text-decoration: none;  
+	color: #FC4A1A;
+	font-family: 'Fredoka One', cursive;
+}
+
+a:hover {
+	color: rgba(252, 74, 26,0.7);
 }
 
 ul {

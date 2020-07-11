@@ -2,7 +2,7 @@
 
 
 body {
-	background: linear-gradient(-90deg, #306BE2, #000);
+	background: linear-gradient(270deg,#4ABDAC, #000);
 	height: 100%;
 	display: flex;
 	
@@ -33,7 +33,7 @@ select {
 }
 
 input {
-	background: rgba(0, 0, 0, 0.1);
+	background: rgba(255, 255, 255, 0.1);
 	border: 0;
 	border-radius: 4px;
 	height: 44px;
@@ -47,10 +47,9 @@ input {
 output{
 	text-align: left;
 	font-family: 'Fredoka One', cursive;
-    color: #FFF;
+    color: #DFDCE3;
     padding: 0 15px;
-      color: #948cad;
-      margin: 0 0 10px;
+    margin: 0 0 10px;
 }
 
 span {
@@ -91,14 +90,14 @@ form {
 	font-family: 'Fredoka One', cursive;
 	font-size: 28px;
       padding: 0 15px;
-      color: #FFF;
+      color: #fff;
       margin: 0 0 10px;
 }
 
 .btn {
-  background-color: DodgerBlue; /* Blue background */
+  background-color: #F7B733; /* Yellow background */
   border: none; /* Remove borders */
-  color: #ffa500;
+  color: #fff;
   padding: 12px 16px; /* Some padding */
   font-size: 16px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
@@ -107,5 +106,5 @@ form {
 }
 
 button:hover {
-  background-color: #FFF;
+  background-color: #f5be4e;
 }
