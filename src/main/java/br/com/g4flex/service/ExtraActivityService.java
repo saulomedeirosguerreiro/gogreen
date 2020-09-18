@@ -58,7 +58,7 @@ public class ExtraActivityService {
 	}
 	
 	public int getQuantityPage(int quantity, int total) {
-	 	return (int)Math.ceil(total/quantity);
+	 	return (int)Math.ceil((double)total/quantity);
 	}
 	
 	

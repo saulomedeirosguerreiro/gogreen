@@ -10,11 +10,18 @@ public class FiltersDTO {
 		
 		private Date finalDate;
 		
+		private String clientName;
+		
 		public FiltersDTO(String userName, Date initialDate, Date finalDate) {
 			super();
 			this.userName = userName;
 			this.initialDate = initialDate;
 			this.finalDate = finalDate;
+		}
+		
+		public FiltersDTO(String clientName) {
+			super();
+			this.clientName = clientName;
 		}
 
 		public String getUserName() {
@@ -30,6 +37,12 @@ public class FiltersDTO {
 		public Date getFinalDate() {
 			return finalDate;
 		}
+
+		public String getClientName() {
+			return clientName;
+		}
+		
+		
 
 
 		

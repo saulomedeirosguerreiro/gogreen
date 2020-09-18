@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import br.com.g4flex.client.FlexExportClient;
 import br.com.g4flex.dto.FiltersDTO;
 import br.com.g4flex.service.ActivityService;
+import br.com.g4flex.service.ClientService;
 import br.com.g4flex.service.ControlOnDutyService;
 import br.com.g4flex.service.ExtraActivityService;
 import br.com.g4flex.service.PointService;
@@ -32,6 +33,7 @@ public class ExportServlet extends HttpServlet {
 	private PointService pointService;
 	private PresentialCalledService presentialCalledService;
 	private ControlOnDutyService controlOnDutyService;
+	private ClientService clientService;
 
 	public ExportServlet() {
 		super();
@@ -40,6 +42,7 @@ public class ExportServlet extends HttpServlet {
 		pointService = new PointService();
 		presentialCalledService = new PresentialCalledService();
 		controlOnDutyService = new ControlOnDutyService();
+		clientService = new ClientService();
 	}
 
 	public String init(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
@@ -56,10 +59,17 @@ public class ExportServlet extends HttpServlet {
 		String action = init(request, response);
 		String model = request.getParameter("model");
 		
-		String userName = request.getParameter("username");
-		Date initialDate = DateUtil.stringToDate(request.getParameter("initialdate"), DateUtil.PATTERN_DATE);
-		Date finalDate = DateUtil.stringToDate(request.getParameter("finaldate"), DateUtil.PATTERN_DATE);
-		FiltersDTO filters  = new FiltersDTO (userName, initialDate,finalDate);
+		FiltersDTO filters = null;
+		FiltersDTO filters2 = null;
+		if(request.getParameter("username")!=null && request.getParameter("initialdate")!=null && request.getParameter("finaldate")!=null ) {
+			String userName = request.getParameter("username");
+			Date initialDate = DateUtil.stringToDate(request.getParameter("initialdate"), DateUtil.PATTERN_DATE);
+			Date finalDate = DateUtil.stringToDate(request.getParameter("finaldate"), DateUtil.PATTERN_DATE);
+			filters  = new FiltersDTO (userName, initialDate,finalDate);
+		}else if(request.getParameter("clientname")!=null) {			
+			String clientName = request.getParameter("clientname");
+			filters2  = new FiltersDTO (clientName);
+		}
 
 		String json = "";
 		if (model.equals("presential")) {
@@ -80,6 +90,11 @@ public class ExportServlet extends HttpServlet {
 			String[] header = { "Data", "Dia da Semana", "Número do Chamado", "Hora de Início", "Hora de Finalização",
 					"Horas Trabalhadas", "Analista", "Cliente", "Justificativa" };
 			json = JsonUtil.getJson(header, controlOnDutyService.getArrayOfArrayObject(filters), "Controle do Plantão");
+		}else if (model.equals("client")) {
+			String[] header = { "Cliente", "Porta", "IP Externo", "IP Interno", "IP Banco",
+					"Qtd Filiais", "Versão Flexuc", "Versão Linux", "Callback", "Inquiry", "FlexSMS", "VPN"
+					, "Script Checa Disco", "Script Checa Callcenter", "Contrato Encerrado"};
+			json = JsonUtil.getJson(header, clientService.getArrayOfArrayObject(filters2), "Acesso dos Clientes");
 		}
 
 		try {

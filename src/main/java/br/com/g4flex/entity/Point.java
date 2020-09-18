@@ -22,10 +22,10 @@ import br.com.g4flex.utils.DateUtil;
 @Entity
 @Table(name = "point")
 @NamedQueries({
-	@NamedQuery(name = "Point.findAll", query = "SELECT p FROM Point p ORDER BY p.date DESC"),
-	@NamedQuery(name = "Point.findByUserNameAndActivityDate", query = "SELECT p FROM Point p WHERE lower(p.user.name) LIKE :userName AND p.date BETWEEN :initialDate AND :finalDate ORDER BY p.date DESC"),
-	@NamedQuery(name = "Point.findByUserName", query = "SELECT p FROM Point p  WHERE lower(p.user.name) LIKE :userName ORDER BY p.date DESC"),
-	@NamedQuery(name = "Point.findByActivityDate", query = "SELECT p FROM Point p  WHERE p.date BETWEEN :initialDate AND :finalDate ORDER BY p.date DESC"),
+	@NamedQuery(name = "Point.findAll", query = "SELECT p FROM Point p "),
+	@NamedQuery(name = "Point.findByUserNameAndActivityDate", query = "SELECT p FROM Point p WHERE lower(p.user.name) LIKE :userName AND p.date BETWEEN :initialDate AND :finalDate "),
+	@NamedQuery(name = "Point.findByUserName", query = "SELECT p FROM Point p  WHERE lower(p.user.name) LIKE :userName "),
+	@NamedQuery(name = "Point.findByActivityDate", query = "SELECT p FROM Point p  WHERE p.date BETWEEN :initialDate AND :finalDate"),
 	@NamedQuery(name = "Point.countAll", query = "SELECT COUNT(p) FROM Point p"),	
 })
 public class Point {

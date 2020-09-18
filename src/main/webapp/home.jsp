@@ -26,8 +26,10 @@
 	  <a href="/gogreen/control.jsp" class="w3-bar-item w3-button"><i class="fa fa-spinner"></i></a> 
 	  <a href="/gogreen/extra.jsp" class="w3-bar-item w3-button"><i class="fa fa-plus"></i></a> 
 	  <a href="/gogreen/activity.jsp" class="w3-bar-item w3-button"><i class="fa fa-database"></i></a>
+	   <a href="/gogreen/client.jsp" class="w3-bar-item w3-button"><i class="fa fa-users"></i></a> 
 	  <a href="/gogreen/point.jsp" class="w3-bar-item w3-button"><i class="fa fa-paw"></i></a> 
 	  <a href="auth?action=logout" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i></a> 
+	  
 	</div>
 </body>
 </html>

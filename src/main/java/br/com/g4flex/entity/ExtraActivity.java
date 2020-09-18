@@ -23,10 +23,10 @@ import br.com.g4flex.utils.DateUtil;
 @Entity
 @Table(name = "extra_activity")
 @NamedQueries({
-	@NamedQuery(name = "ExtraActivity.findAll", query = "SELECT ea FROM ExtraActivity ea ORDER BY ea.activityDate DESC"),
-	@NamedQuery(name = "ExtraActivity.findByUserNameAndActivityDate", query = "SELECT ea FROM ExtraActivity ea WHERE lower(ea.user.name) LIKE :userName AND ea.activityDate BETWEEN :initialDate AND :finalDate  ORDER BY ea.activityDate DESC"),
-	@NamedQuery(name = "ExtraActivity.findByUserName", query = "SELECT ea FROM ExtraActivity ea WHERE lower(ea.user.name) LIKE :userName ORDER BY ea.activityDate DESC"),
-	@NamedQuery(name = "ExtraActivity.findByActivityDate", query = "SELECT ea FROM ExtraActivity ea WHERE ea.activityDate BETWEEN :initialDate AND :finalDate  ORDER BY ea.activityDate DESC"),
+	@NamedQuery(name = "ExtraActivity.findAll", query = "SELECT ea FROM ExtraActivity ea"),
+	@NamedQuery(name = "ExtraActivity.findByUserNameAndActivityDate", query = "SELECT ea FROM ExtraActivity ea WHERE lower(ea.user.name) LIKE :userName AND ea.activityDate BETWEEN :initialDate AND :finalDate"),
+	@NamedQuery(name = "ExtraActivity.findByUserName", query = "SELECT ea FROM ExtraActivity ea WHERE lower(ea.user.name) LIKE :userName "),
+	@NamedQuery(name = "ExtraActivity.findByActivityDate", query = "SELECT ea FROM ExtraActivity ea WHERE ea.activityDate BETWEEN :initialDate AND :finalDate "),
 	@NamedQuery(name = "ExtraActivity.countAll", query = "SELECT COUNT(ea) FROM ExtraActivity ea"),
 	
 })

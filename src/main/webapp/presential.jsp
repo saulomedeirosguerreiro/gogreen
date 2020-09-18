@@ -33,7 +33,7 @@
 
 	//pagination
 
-	int quantityPerPage = 10;
+	int quantityPerPage = 30;
 	String textQuantity = String.valueOf(quantityPerPage);
 	
 	int total = 0;

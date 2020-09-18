@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+i {
+	color: black;
+}
+
 #customers {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
@@ -9,7 +13,7 @@
 
 #customers td, #customers th {
 	border: 1px solid #ddd;
-	padding: 8px;
+	padding: 1px;
 }
 
 #customers tr {
